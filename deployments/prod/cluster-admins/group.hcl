@@ -1,0 +1,4 @@
+locals {
+  prefix = ""
+  suffix = "admins"
+}

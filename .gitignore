@@ -32,3 +32,5 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+deployments/prod/aks/apps/segway/_segway.hcl
+.terragrunt-cache
