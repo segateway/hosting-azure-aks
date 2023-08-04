@@ -33,4 +33,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 deployments/prod/aks/apps/segway/_segway.hcl
+deployments/prod/aks/apps/logging/secrets/_secrets.hcl
 .terragrunt-cache
