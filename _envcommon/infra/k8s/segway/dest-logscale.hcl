@@ -27,7 +27,7 @@ locals {
 
   base_values = yamldecode(<<YAML
 args:
-  - -edt
+  - -e
 podAnnotations:
   reloader.stakater.com/auto: "true"
 secret:
