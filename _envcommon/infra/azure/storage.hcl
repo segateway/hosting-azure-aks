@@ -74,7 +74,7 @@ inputs = {
   #     "Metrics",
   #     "AzureServices"
   #   ]
-  #   ip_rules = ["136.226.59.1"]
+  #   ip_rules = []
   #   subnet_ids = [
   #     dependency.net.outputs.virtual_subnet_id
   #   ]

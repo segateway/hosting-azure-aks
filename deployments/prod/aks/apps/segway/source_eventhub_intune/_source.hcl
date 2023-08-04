@@ -1,3 +1,3 @@
 locals {
-    name = "intune"
+  name = "intune"
 }

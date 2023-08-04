@@ -1,3 +1,3 @@
 locals {
-    name = "azuread"
+  name = "azuread"
 }

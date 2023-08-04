@@ -51,6 +51,17 @@ locals {
         destinations = [
           "segway-iaas-microsoft-azure"
         ]
+        template = "t_logscale_parsed"
+        tags = [
+          {
+            name : "vendor"
+            value : "microsoft"
+          },
+          {
+            name : "type"
+            value : "azure"
+          }
+        ]
         flags = ["catchall", "final"]
       },
       {
@@ -60,6 +71,17 @@ locals {
         ]
         destinations = [
           "segway-saas-microsoft-azuread"
+        ]
+        template = "t_logscale_compat_parsed"
+        tags = [
+          {
+            name : "vendor"
+            value : "microsoft"
+          },
+          {
+            name : "type"
+            value : "azuread"
+          }
         ]
         flags = ["catchall", "final"]
       },
@@ -71,6 +93,17 @@ locals {
         destinations = [
           "segway-saas-microsoft-defender"
         ]
+        template = "t_logscale_parsed"
+        tags = [
+          {
+            name : "vendor"
+            value : "microsoft"
+          },
+          {
+            name : "type"
+            value : "microsoft365"
+          }
+        ]
         flags = ["catchall", "final"]
       },
       {
@@ -81,12 +114,33 @@ locals {
         destinations = [
           "segway-saas-microsoft-intune"
         ]
+        template = "t_logscale_parsed"
+        tags = [
+          {
+            name : "vendor"
+            value : "microsoft"
+          },
+          {
+            name : "type"
+            value : "intune"
+          }
+        ]
         flags = ["catchall", "final"]
       },
       {
         name = "fallback"
         destinations = [
           "app-segway-fallback"
+        ]
+        tags = [
+          {
+            name : "vendor"
+            value : "segway"
+          },
+          {
+            name : "type"
+            value : "unknown"
+          }
         ]
         flags = ["catchall", "fallback", "final"]
       }

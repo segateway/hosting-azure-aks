@@ -1,3 +1,3 @@
 locals {
-    name = "azure"
+  name = "azure"
 }

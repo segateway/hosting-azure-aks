@@ -1,3 +1,3 @@
 locals {
-    name = "defender"
+  name = "defender"
 }

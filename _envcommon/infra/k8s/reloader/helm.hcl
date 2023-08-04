@@ -20,36 +20,15 @@ locals {
 
   # Automatically load environment-level variables
   environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
-  logscale_vars    = read_terragrunt_config("_segway.hcl")
 
-  # repos: |
-  #  $     {yamlencode(local.logscale_vars.locals.repos)}
-
-  base_values = yamldecode(<<YAML
-args:
-  - -edt
-podAnnotations:
-  reloader.stakater.com/auto: "true"
-secret:
-  # Specifies whether a service account should be created
-  create: true
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  url: ${local.logscale_vars.locals.url}
-
-YAML
-  )
-
-  merged_values = merge(local.base_values, {
-  "config" = { "syslogng" = local.logscale_vars.locals.syslogng } })
 }
 
 dependency "k8s" {
-  config_path = "${get_terragrunt_dir()}/../../../k8s/"
+  config_path = "${get_terragrunt_dir()}/../../k8s/"
 }
 dependencies {
   paths = [
-    "${get_terragrunt_dir()}/../../argocd/projects/segway",
+    "${get_terragrunt_dir()}/../argocd/projects/common",
   ]
 }
 generate "provider" {
@@ -74,21 +53,25 @@ EOF
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  name = "ls-cloud"
+  name = "reloader"
 
 
-  repository = "https://seg-way.github.io/charts"
+  repository = "https://stakater.github.io/stakater-charts"
 
-  release          = "ls-cloud"
-  chart            = "segway-sys-dest-logscale"
-  chart_version    = "1.8.3"
-  namespace        = "seg-way"
+  release          = "reloader"
+  chart            = "reloader"
+  chart_version    = "1.0.34"
+  namespace        = "reloader"
   create_namespace = true
-  project          = "segway"
+  project          = "common"
   skipCrds         = false
 
 
-  values = local.merged_values
+  values = yamldecode(<<YAML
+novalues: ""
+
+YAML
+  )
 
   ignoreDifferences = [
   ]
