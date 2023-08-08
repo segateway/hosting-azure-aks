@@ -70,8 +70,8 @@ inputs = {
   repository = "https://seg-way.github.io/charts"
 
   release          = "eh-${local.source_vars.locals.name}"
-  chart            = "segway-sys-source-ms-azure-eventhub"
-  chart_version    = "v2.0.0"
+  chart            = "segway-sys-source-ms-azure-eventhub"  
+  chart_version    = "2.0.0"
   namespace        = "seg-way"
   create_namespace = true
   project          = "segway"
