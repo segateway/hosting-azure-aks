@@ -5,6 +5,11 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
+  # Automatically load environment-level variables
+  state_vars = read_terragrunt_config(find_in_parent_folders("state.hcl"))
+  state_resourcegroup = local.state_vars.locals.resourcegroup
+  state_storageaccount = local.state_vars.locals.storageaccount
+  state_container = local.state_vars.locals.container
 
   # Automatically load environment-level variables
   environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
@@ -40,9 +45,9 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    resource_group_name  = "segway-state"
-    storage_account_name = "logsrlifetfstate"
-    container_name       = "tfstate"
+    resource_group_name  = local.state_resourcegroup
+    storage_account_name = local.state_storageaccount
+    container_name       = local.state_container
     key                  = "${path_relative_to_include()}/terraform.tfstate"
 
   }
