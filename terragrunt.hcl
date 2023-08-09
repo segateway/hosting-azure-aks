@@ -27,7 +27,7 @@ remote_state {
     storage_account_name = local.state_storageaccount
     container_name       = local.state_container
     key                  = "${path_relative_to_include()}/terraform.tfstate"
-
+    subscription_id      = local.azure.subscription_id
   }
 }
 
@@ -39,8 +39,6 @@ provider "azurerm" {
   features {}
 
   subscription_id = "${local.azure.subscription_id}"
-  tenant_id = "${local.azure.tenant_id}"
-    
 }    
   EOF
 }

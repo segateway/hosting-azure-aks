@@ -25,7 +25,17 @@ locals {
   suffix = local.g_vars.locals.suffix
 
 }
+generate "provider" {
+  path      = "provider_azuread.tf"
+  if_exists = "overwrite_terragrunt"
+  contents  = <<-EOF
+provider "azuread" {
+  features {}
 
+  tenant_id = "${local.azure.tenant_id}"
+}    
+  EOF
+}
 # ---------------------------------------------------------------------------------------------------------------------
 # MODULE PARAMETERS
 # These are the variables we have to pass in to use the module. This defines the parameters that are common across all
