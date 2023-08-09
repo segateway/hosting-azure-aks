@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "git::https://github.com/logscale-contrib/terraform-azure-eventhub-consumergroup.git?ref=v1.0.0"
+  source = "tfr:///seg-way/eventhub-consumergroup/azurerm?version=1.0.1"
 }
 
 
@@ -34,14 +34,8 @@ locals {
 
 
   tag_vars = read_terragrunt_config(find_in_parent_folders("tags.hcl"))
-  tags = merge(
-    local.tag_vars.locals.tags,
-    {
-      Environment   = local.env
-      GitRepository = run_cmd("sh", "-c", "git config --get remote.origin.url")
-      Role          = "tenants"
-    },
-  )
+  tags = local.tag_vars.locals.tags
+
 }
 
 dependency "rg_collectors" {

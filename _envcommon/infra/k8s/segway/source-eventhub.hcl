@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "git::https://github.com/logscale-contrib/terraform-argocd-applicationset.git?ref=v1.1.1"
+  source = "tfr:///seg-way/argocd-applicationset/kubernetes?version=1.0.0"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

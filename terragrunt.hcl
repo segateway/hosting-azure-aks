@@ -26,14 +26,7 @@ locals {
   rg_name = local.rg_vars.locals.name
 
   tag_vars = read_terragrunt_config(find_in_parent_folders("tags.hcl"))
-  tags = jsonencode(merge(
-    local.tag_vars.locals.tags,
-    {
-      Environment = local.env
-      # Owner         = get_aws_caller_identity_user_id()
-      GitRepository = run_cmd("sh", "-c", "git config --get remote.origin.url")
-    },
-  ))
+  tags = local.tag_vars.locals.tags
 }
 
 

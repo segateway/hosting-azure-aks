@@ -11,7 +11,7 @@
 # deployed version.
 
 terraform {
-  source = "git::https://github.com/logscale-contrib/terraform-azure-container-registry.git?ref=v1.0.1"
+  source = "tfr:///seg-way/container-registry/azurerm?version=1.0.1"
 }
 
 

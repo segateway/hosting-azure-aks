@@ -11,7 +11,7 @@
 # deployed version.
 
 terraform {
-  source = "git::https://github.com/logscale-contrib/teraform-azure-vault.git?ref=v2.4.4"
+  source = "tfr:///seg-way/vault/azurerm?version=1.0.1"
 }
 
 

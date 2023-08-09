@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "git::https://github.com/logscale-contrib/terraform-azuread-group.git?ref=v1.0.0"
+  source = "tfr:///seg-way/group/azuread?version=1.0.1"
 }
 
 

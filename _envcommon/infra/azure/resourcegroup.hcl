@@ -11,7 +11,7 @@
 # deployed version.
 
 terraform {
-  source = "git::https://github.com/logscale-contrib/teraform-self-managed-logscale-azure-resource-group.git?ref=v1.1.0"
+  source = "tfr:///seg-way/resource-group/azurerm?version=1.0.1"
 }
 
 
@@ -35,14 +35,7 @@ locals {
   rg_name = local.rg_vars.locals.name
 
   tag_vars = read_terragrunt_config(find_in_parent_folders("tags.hcl"))
-  tags = merge(
-    local.tag_vars.locals.tags,
-    {
-      Environment   = local.env
-      GitRepository = run_cmd("sh", "-c", "git config --get remote.origin.url")
-      Role          = "tenants"
-    },
-  )
+  tags = local.tag_vars.locals.tags
 }
 
 

@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "git::https://github.com/seg-way/teraform-azure-aks-cluster.git?ref=v1.0.4"
+  source = "tfr:///seg-way/akscluster/azurerm?version=1.0.5"
 }
 
 

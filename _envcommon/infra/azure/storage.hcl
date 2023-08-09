@@ -32,16 +32,6 @@ locals {
   subscription_id = local.azure_vars.locals.subscription_id
   tenant_id       = local.azure_vars.locals.tenant_id
 
-
-  tag_vars = read_terragrunt_config(find_in_parent_folders("tags.hcl"))
-  tags = merge(
-    local.tag_vars.locals.tags,
-    {
-      Environment   = local.env
-      GitRepository = run_cmd("sh", "-c", "git config --get remote.origin.url")
-      Role          = "tenants"
-    },
-  )
 }
 
 

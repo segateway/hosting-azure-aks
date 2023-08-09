@@ -34,14 +34,8 @@ locals {
 
 
   tag_vars = read_terragrunt_config(find_in_parent_folders("tags.hcl"))
-  tags = merge(
-    local.tag_vars.locals.tags,
-    {
-      Environment   = local.env
-      GitRepository = run_cmd("sh", "-c", "git config --get remote.origin.url")
-      Role          = "tenants"
-    },
-  )
+  tags = local.tag_vars.locals.tags
+
 }
 
 
