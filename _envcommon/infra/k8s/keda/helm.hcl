@@ -13,21 +13,21 @@ terraform {
   source = "tfr:///seg-way/argocd-applicationset/kubernetes?version=1.0.0"
 }
 
-
-
 locals {
-  logscale = yamldecode(file(find_in_parent_folders("logging_vars.yaml")))
+
+
 }
 
+
+
 dependency "k8s" {
-  config_path = "${get_terragrunt_dir()}/../../../k8s/"
+  config_path = "${get_terragrunt_dir()}/../../k8s/"
 }
 dependencies {
   paths = [
-    "${get_terragrunt_dir()}/../../argocd/projects/common",
+    "${get_terragrunt_dir()}/../argocd/projects/common",
   ]
 }
-
 generate "provider" {
   path      = "provider_k8s.tf"
   if_exists = "overwrite_terragrunt"
@@ -51,35 +51,20 @@ EOF
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
 
-  name       = "logging-secrets"
-  repository = "https://charts.appuio.ch"
+  name = "keda"
 
-  release          = "logging-secrets"
-  chart            = "secret"
-  chart_version    = "1.1.0"
-  namespace        = "logging"
+  repository = "https://kedacore.github.io/charts"
+
+  release          = "keda"
+  chart            = "logging-operator-logging"
+  chart_version    = "2.11.2"
+  namespace        = "keda"
   create_namespace = true
   project          = "common"
-  skipCrds         = false
 
   values = yamldecode(<<EOF
-secrets: 
-  logscale-k8s-infra-events:
-    nameTemplate: logscale-k8s-infra-events
-    stringData:
-      token: ${local.logscale.k8s.infraEvents} 
-  logscale-k8s-infra-hosts:
-    nameTemplate: logscale-k8s-infra-hosts
-    stringData:
-      token: ${local.logscale.k8s.infraHosts} 
-  logscale-k8s-infra-pods:
-    nameTemplate: logscale-k8s-infra-pods
-    stringData:
-      token: ${local.logscale.k8s.infraPods} 
-  logscale-k8s-app-pods:
-    nameTemplate: logscale-k8s-app-pods
-    stringData:
-      token: ${local.logscale.k8s.appPods} 
+none: ""
+
 EOF
   )
 

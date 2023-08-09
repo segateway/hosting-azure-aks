@@ -15,7 +15,7 @@ terraform {
 
 locals {
 
-  logscale = yamldecode(file(find_in_parent_folders("logscale_vars.yaml")))
+  logscale = yamldecode(file(find_in_parent_folders("logging_vars.yaml")))
 
 }
 

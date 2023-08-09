@@ -1,0 +1,11 @@
+instance:
+  host: 
+  protocol: https
+  port: 443
+  insecure: "false"
+k8s:
+  infraEvents: 
+  infraHosts: 
+  infraPods: 
+  appPods: 
+  

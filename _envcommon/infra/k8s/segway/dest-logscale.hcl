@@ -18,28 +18,8 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
 
-  logscale_vars    = read_terragrunt_config("_segway.hcl")
+  segway_values = yamldecode(file(find_in_parent_folders("segway_values.yaml")))
 
-  # repos: |
-  #  $     {yamlencode(local.logscale_vars.locals.repos)}
-
-  base_values = yamldecode(<<YAML
-args:
-  - -e
-podAnnotations:
-  reloader.stakater.com/auto: "true"
-secret:
-  # Specifies whether a service account should be created
-  create: true
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  url: ${local.logscale_vars.locals.url}
-
-YAML
-  )
-
-  merged_values = merge(local.base_values, {
-  "config" = { "syslogng" = local.logscale_vars.locals.syslogng } })
 }
 
 dependency "k8s" {
@@ -86,7 +66,7 @@ inputs = {
   skipCrds         = false
 
 
-  values = local.merged_values
+  values = local.segway_values
 
   ignoreDifferences = [
   ]

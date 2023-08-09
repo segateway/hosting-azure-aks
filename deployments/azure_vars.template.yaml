@@ -1,0 +1,16 @@
+location: EastUS
+subscription_id: 
+tenant_id: 
+tags:
+  Environment: production
+  Project: segway
+resourcegroup: segway-prod
+shortname: segwayprd
+eventhubnamespace:
+  settings:
+    sku: Standard
+    auto_inflate_enabled: true
+    maximum_throughput_units: 5
+    network_rulesets:
+      default_action: Deny
+      public_network_access_enabled: false

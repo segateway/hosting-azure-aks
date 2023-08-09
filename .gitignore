@@ -34,5 +34,9 @@ override.tf.json
 terraform.rc
 .terragrunt-cache
 .terraform.lock.hcl
-deployments/prod/aks/apps/segway/_segway.hcl
-deployments/prod/aks/apps/logging/secrets/_secrets.hcl
+deployments/*/azure_vars.yaml
+deployments/*/logscale_vars.yaml
+deployments/*/segway_values.yaml
+deployments/segway_values.yaml
+deployments/logging_vars.yaml
+deployments/azure_vars.yaml
