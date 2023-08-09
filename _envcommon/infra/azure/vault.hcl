@@ -20,6 +20,8 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
 
+  azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
+
 
 }
 
@@ -41,7 +43,7 @@ dependency "net" {
 inputs = {
   resource_group = dependency.rg.outputs.resource_group_name
   location       = dependency.rg.outputs.resource_group_location
-  prefix         = "${dependency.rg.outputs.resource_group_name}"
+  prefix         = local.azure.vaultPrefix
 
   virtual_network_subnet_ids = [
     dependency.net.outputs.virtual_subnet_id

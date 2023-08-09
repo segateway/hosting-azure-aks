@@ -5,6 +5,7 @@ tags:
   Environment: production
   Project: segway
 resourcegroup: segway-prod
+vaultPrefix: segwayprd
 shortname: segwayprd
 eventhubnamespace:
   settings:
