@@ -19,26 +19,8 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
   
-  azure_vars      = read_terragrunt_config(find_in_parent_folders("azure.hcl"))
-  location        = local.azure_vars.locals.location
-  subscription_id = local.azure_vars.locals.subscription_id
-  tenant_id       = local.azure_vars.locals.tenant_id
 }
 
-
-generate "provider" {
-  path      = "provider_azure.tf"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<-EOF
-provider "azurerm" {
-  features {}
-
-  subscription_id = "${local.subscription_id}"
-  tenant_id = "${local.tenant_id}"
-    
-}    
-  EOF
-}
 
 dependency "rg" {
   config_path = "${get_terragrunt_dir()}/../../resourcegroup/"

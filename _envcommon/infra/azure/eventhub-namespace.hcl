@@ -18,14 +18,7 @@ terraform {
 # Locals are named constants that are reusable within the configuration.
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
-
-  azure_vars      = read_terragrunt_config(find_in_parent_folders("azure.hcl"))
-  subscription_id = local.azure_vars.locals.subscription_id
-  tenant_id       = local.azure_vars.locals.tenant_id
-
-  # Automatically load environment-level variables
-  config   = read_terragrunt_config(find_in_parent_folders("_eventhubnamespace.hcl"))
-  settings = local.config.locals.settings
+  azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
 }
 
 
@@ -49,13 +42,13 @@ inputs = {
   location                 = dependency.rg.outputs.resource_group_location
 
   settings = {
-    sku                      = local.settings.sku
-    auto_inflate_enabled     = local.settings.auto_inflate_enabled
-    maximum_throughput_units = local.settings.maximum_throughput_units
+    sku                      = local.azure.eventhubnamespace.settings.sku
+    auto_inflate_enabled     = local.azure.eventhubnamespace.settings.auto_inflate_enabled
+    maximum_throughput_units = local.azure.eventhubnamespace.settings.maximum_throughput_units
 
     network_rulesets = {
-      default_action                 = local.settings.network_rulesets.default_action
-      public_network_access_enabled  = local.settings.network_rulesets.public_network_access_enabled
+      default_action                 = local.azure.eventhubnamespace.settings.network_rulesets.default_action
+      public_network_access_enabled  = local.azure.eventhubnamespace.settings.network_rulesets.public_network_access_enabled
       trusted_service_access_enabled = true
 
       virtual_network_rule = {

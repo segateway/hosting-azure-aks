@@ -21,19 +21,19 @@ locals {
     ]
     repos = [
       {
-        name  = "segway-iaas-microsoft-azure"
+        name  = "iaas-microsoft-azure"
         token = "ba7f4777-be75-4709-bd41-9edb82febfa0"
       },
       {
-        name  = "segway-saas-microsoft-azuread"
+        name  = "saas-microsoft-azuread"
         token = "9812f04e-efa3-4621-aea4-ffb369a826c4"
       },
       {
-        name  = "segway-saas-microsoft-defender"
+        name  = "saas-microsoft-defender"
         token = "44d68003-5ded-4aed-acbf-9bcc2479756f"
       },
       {
-        name  = "segway-saas-microsoft-intune"
+        name  = "saas-microsoft-intune"
         token = "c0882e90-aa08-47e1-b8c2-42311e08d5c4"
       },
       {
@@ -49,7 +49,7 @@ locals {
           "filter(f_azure)"
         ]
         destinations = [
-          "segway-iaas-microsoft-azure"
+          "iaas-microsoft-azure"
         ]
         template = "t_logscale_parsed"
         tags = [
@@ -70,9 +70,9 @@ locals {
           "filter(f_azuread)"
         ]
         destinations = [
-          "segway-saas-microsoft-azuread"
+          "saas-microsoft-azuread"
         ]
-        template = "t_logscale_compat_parsed"
+        template = "t_logscale_parsed"
         tags = [
           {
             name : "vendor"
@@ -91,7 +91,7 @@ locals {
           "filter(f_defender)"
         ]
         destinations = [
-          "segway-saas-microsoft-defender"
+          "saas-microsoft-defender"
         ]
         template = "t_logscale_parsed"
         tags = [
@@ -112,7 +112,7 @@ locals {
           "filter(f_intune)"
         ]
         destinations = [
-          "segway-saas-microsoft-intune"
+          "saas-microsoft-intune"
         ]
         template = "t_logscale_parsed"
         tags = [

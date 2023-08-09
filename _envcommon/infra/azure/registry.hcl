@@ -19,15 +19,7 @@ terraform {
 # Locals are named constants that are reusable within the configuration.
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
-
-  azure_vars      = read_terragrunt_config(find_in_parent_folders("azure.hcl"))
-  location        = local.azure_vars.locals.location
-  subscription_id = local.azure_vars.locals.subscription_id
-  tenant_id       = local.azure_vars.locals.tenant_id
-
-  rg_vars = read_terragrunt_config(find_in_parent_folders("resourcegroup.hcl"))
-  name    = local.rg_vars.locals.nameAN
-
+  azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
 }
 
 dependency "rg" {
@@ -42,7 +34,5 @@ dependency "rg" {
 inputs = {
   resource_group = dependency.rg.outputs.resource_group_name
   location       = dependency.rg.outputs.resource_group_location
-  prefix         = local.name
-
-
+  prefix         = local.azure.shortname
 }

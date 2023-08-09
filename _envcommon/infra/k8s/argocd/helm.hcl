@@ -17,11 +17,6 @@ terraform {
 # Locals are named constants that are reusable within the configuration.
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
-  # dns         = read_terragrunt_config(find_in_parent_folders("dns.hcl"))
-  # domain_name = local.dns.locals.domain_name
-
-  # host_name = "argocd"
-
 }
 
 

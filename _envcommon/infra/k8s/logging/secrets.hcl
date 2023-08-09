@@ -16,14 +16,8 @@ terraform {
 
 
 locals {
-  # Expose the base source URL so different versions of the module can be deployed in different environments. This will
-  # be used to construct the terraform block in the child terragrunt configurations.
-
-  secrets_vars = read_terragrunt_config("_secrets.hcl")
-
-
+  logscale = yamldecode(file(find_in_parent_folders("logscale_vars.yaml")))
 }
-
 
 dependency "k8s" {
   config_path = "${get_terragrunt_dir()}/../../../k8s/"
@@ -33,6 +27,7 @@ dependencies {
     "${get_terragrunt_dir()}/../../argocd/projects/common",
   ]
 }
+
 generate "provider" {
   path      = "provider_k8s.tf"
   if_exists = "overwrite_terragrunt"
@@ -72,19 +67,19 @@ secrets:
   logscale-k8s-infra-events:
     nameTemplate: logscale-k8s-infra-events
     stringData:
-      token: ${local.secrets_vars.locals.logscale_k8s_infra_events} 
+      token: ${local.logscale.k8s.infraEvents} 
   logscale-k8s-infra-hosts:
     nameTemplate: logscale-k8s-infra-hosts
     stringData:
-      token: ${local.secrets_vars.locals.logscale_k8s_infra_hosts} 
+      token: ${local.logscale.k8s.infraHosts} 
   logscale-k8s-infra-pods:
     nameTemplate: logscale-k8s-infra-pods
     stringData:
-      token: ${local.secrets_vars.locals.logscale_k8s_infra_pods} 
+      token: ${local.logscale.k8s.infraPods} 
   logscale-k8s-app-pods:
     nameTemplate: logscale-k8s-app-pods
     stringData:
-      token: ${local.secrets_vars.locals.logscale_k8s_app_pods} 
+      token: ${local.logscale.k8s.appPods} 
 EOF
   )
 

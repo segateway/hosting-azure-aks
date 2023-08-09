@@ -20,17 +20,8 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
 
+  azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
 
-  azure_vars      = read_terragrunt_config(find_in_parent_folders("azure.hcl"))
-  location        = local.azure_vars.locals.location
-  subscription_id = local.azure_vars.locals.subscription_id
-  tenant_id       = local.azure_vars.locals.tenant_id
-  # Extract the variables we need for easy access
-  rg_vars = read_terragrunt_config(find_in_parent_folders("resourcegroup.hcl"))
-  rg_name = local.rg_vars.locals.name
-
-  tag_vars = read_terragrunt_config(find_in_parent_folders("tags.hcl"))
-  tags = local.tag_vars.locals.tags
 }
 
 
@@ -42,7 +33,7 @@ locals {
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  uniqueName = local.rg_name
-  location   = local.location
-  tags       = local.tags
+  uniqueName = local.azure.resourcegroup
+  location   = local.azure.location
+  tags       = local.azure.tags
 }

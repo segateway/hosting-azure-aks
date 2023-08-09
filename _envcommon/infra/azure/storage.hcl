@@ -19,13 +19,7 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
 
-  rg_vars = read_terragrunt_config(find_in_parent_folders("resourcegroup.hcl"))
-  nameAN  = local.rg_vars.locals.nameAN
-
-  azure_vars      = read_terragrunt_config(find_in_parent_folders("azure.hcl"))
-  location        = local.azure_vars.locals.location
-  subscription_id = local.azure_vars.locals.subscription_id
-  tenant_id       = local.azure_vars.locals.tenant_id
+  azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
 
 }
 
@@ -45,7 +39,7 @@ dependency "net" {
 inputs = {
   resource_group_name  = dependency.rg_collectors.outputs.resource_group_name
   location             = dependency.rg_collectors.outputs.resource_group_location
-  storage_account_name = local.nameAN
+  storage_account_name = local.azure.shortname
 
   containers_list = [
     { name = "azure", access_type = "private" },

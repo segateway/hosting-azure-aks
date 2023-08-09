@@ -15,21 +15,7 @@ terraform {
 
 locals {
 
-
-  url_args = read_terragrunt_config("url.hcl")
-
-
-  inputs_url   = local.url_args.locals.fqdn
-  insecure_ssl = false
-  protocol     = "https"
-  hec_port     = "443"
-
-
-  # inputs_url   =   local.fqdn
-  # insecure_ssl = false
-  # protocol     = "https"
-  # hec_port     = "443" 
-
+  logscale = yamldecode(file(find_in_parent_folders("logscale_vars.yaml")))
 
 }
 
@@ -107,20 +93,6 @@ hostTailer:
           requests:
             cpu: 50m
             memory: 50Mi
-# nodeAgents:
-#   - name: win-agent
-#     profile: windows
-#     nodeAgentFluentbit:
-#       tls:
-#         enabled: false
-#   - name: linux-agent
-#     profile: linux
-#     nodeAgentFluentbit:
-#       metrics:
-#         prometheusAnnotations: true
-#         serviceMonitor: false
-#       tls:
-#         enabled: false 
 enableRecreateWorkloadOnImmutableFieldChange: true
 clusterFlows:
   - name: k8s-infra-hosts
@@ -255,10 +227,10 @@ clusterOutputs:
       splunkHec:
         ca_path: 
           value: /etc/ssl/certs/
-        hec_host: ${local.inputs_url}
-        insecure_ssl: ${local.insecure_ssl}
-        protocol: ${local.protocol}
-        hec_port: ${local.hec_port}
+        hec_host: ${local.logscale.instance.host}
+        insecure_ssl: ${local.logscale.instance.insecure}
+        protocol: ${local.logscale.instance.protocol}
+        hec_port: ${local.logscale.instance.port}
         hec_token:
           valueFrom:
             secretKeyRef:
@@ -271,10 +243,10 @@ clusterOutputs:
       splunkHec:
         ca_path: 
           value: /etc/ssl/certs/
-        hec_host: ${local.inputs_url}
-        insecure_ssl: ${local.insecure_ssl}
-        protocol: ${local.protocol}
-        hec_port: ${local.hec_port}
+        hec_host: ${local.logscale.instance.host}
+        insecure_ssl: ${local.logscale.instance.insecure}
+        protocol: ${local.logscale.instance.protocol}
+        hec_port: ${local.logscale.instance.port}
         hec_token:
           valueFrom:
             secretKeyRef:
@@ -287,10 +259,10 @@ clusterOutputs:
       splunkHec:
         ca_path: 
           value: /etc/ssl/certs/
-        hec_host: ${local.inputs_url}
-        insecure_ssl: ${local.insecure_ssl}
-        protocol: ${local.protocol}
-        hec_port: ${local.hec_port}
+        hec_host: ${local.logscale.instance.host}
+        insecure_ssl: ${local.logscale.instance.insecure}
+        protocol: ${local.logscale.instance.protocol}
+        hec_port: ${local.logscale.instance.port}
         hec_token:
           valueFrom:
             secretKeyRef:
@@ -303,10 +275,10 @@ clusterOutputs:
       splunkHec:
         ca_path: 
           value: /etc/ssl/certs/
-        hec_host: ${local.inputs_url}
-        insecure_ssl: ${local.insecure_ssl}
-        protocol: ${local.protocol}
-        hec_port: ${local.hec_port}
+        hec_host: ${local.logscale.instance.host}
+        insecure_ssl: ${local.logscale.instance.insecure}
+        protocol: ${local.logscale.instance.protocol}
+        hec_port: ${local.logscale.instance.port}
         hec_token:
           valueFrom:
             secretKeyRef:
