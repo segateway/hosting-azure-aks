@@ -18,11 +18,6 @@ terraform {
 # Locals are named constants that are reusable within the configuration.
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
-  # Automatically load environment-level variables
-  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
-
-  # Extract out common variables for reuse
-  env = local.environment_vars.locals.environment
 
   rg_vars = read_terragrunt_config(find_in_parent_folders("resourcegroup.hcl"))
   nameAN  = local.rg_vars.locals.nameAN

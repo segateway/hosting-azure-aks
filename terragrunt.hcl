@@ -11,11 +11,6 @@ locals {
   state_storageaccount = local.state_vars.locals.storageaccount
   state_container = local.state_vars.locals.container
 
-  # Automatically load environment-level variables
-  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
-
-  # Extract out common variables for reuse
-  env = local.environment_vars.locals.environment
 
   azure_vars      = read_terragrunt_config(find_in_parent_folders("azure.hcl"))
   location        = local.azure_vars.locals.location
@@ -71,5 +66,5 @@ provider "azurerm" {
 # Configure root level variables that all resources can inherit. This is especially helpful with multi-account configs
 # where terraform_remote_state data sources are placed directly into the modules.
 inputs = merge(
-  local.environment_vars.locals,
+  
 )

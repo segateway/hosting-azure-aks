@@ -19,12 +19,6 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
 
-  # Automatically load environment-level variables
-  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
-
-  # Extract out common variables for reuse
-  env = local.environment_vars.locals.environment
-
   azure_vars      = read_terragrunt_config(find_in_parent_folders("azure.hcl"))
   location        = local.azure_vars.locals.location
   subscription_id = local.azure_vars.locals.subscription_id
