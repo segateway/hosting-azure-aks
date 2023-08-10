@@ -66,7 +66,7 @@ inputs = {
   values = yamldecode(<<EOF
 nameOverride: logs
 controlNamespace: logging
-# errorOutputRef: logscale
+errorOutputRef: logscale
 # -- EventTailer config
 eventTailer: 
   name: cluster
@@ -83,16 +83,16 @@ hostTailer:
     tolerations:
       - operator: "Exists"
 
-  systemdTailers:
-    - name: host-tailer-systemd-kubelet
-      disabled: false
-      maxEntries: 200
-      systemdFilter: "kubelet.service"
-      containerOverrides:
-        resources:
-          requests:
-            cpu: 50m
-            memory: 50Mi
+systemdTailers:
+  - name: host-tailer-systemd-kubelet
+    disabled: false
+    maxEntries: 200
+    systemdFilter: "kubelet.service"
+    containerOverrides:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
 enableRecreateWorkloadOnImmutableFieldChange: true
 clusterFlows:
   - name: k8s-infra-hosts
@@ -173,6 +173,9 @@ clusterFlows:
       - select:
           namespaces:
             - gatekeeper-system
+      - select:
+          namespaces:
+            - reloader            
       globalOutputRefs:
         - logscale-infra-pod
   - name: k8s-app-pods
@@ -215,6 +218,9 @@ clusterFlows:
       - exclude:
           namespaces:
             - reloader
+      - exclude:
+          namespaces:
+            - keda
       - select: {}
       globalOutputRefs:
         - logscale-app-pod

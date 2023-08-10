@@ -22,7 +22,10 @@ aks:
   agents:
     #low cost "Ampre" Powered VM can be intel if desired 8 GB memory instances
     # are required 
+    # arm
     size: Standard_D2pds_v5
+    # amd
+    # size: Standard_D2as_v5
     max: 6
 eventhubnamespace:
   settings:

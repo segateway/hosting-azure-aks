@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/akscluster/azurerm?version=1.0.5"
+  source = "tfr:///seg-way/akscluster/azurerm?version=1.1.0"
 }
 
 
