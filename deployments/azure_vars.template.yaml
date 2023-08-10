@@ -1,21 +1,36 @@
 location: EastUS
-subscription_id: 
-tenant_id: 
+#Subscription ID of azure subscription to create resources
+subscription_id:
+#Subscription ID of AzureAD subscription for Access Group creation
+tenant_id:
+backend:
+  #Manually created resource group and storage accounts for tf state
+  resourcegroup: 
+  storageaccount: 
+  container: tfstate
 tags:
+  #Any number of kv pairs as required by local policy
   Environment: production
   Project: segway
+#Name of resource group for segway resources lower case no spaces
 resourcegroup: segway-prod
+#Short lowercase string for vault
 vaultPrefix: segwayprd
+#Short lowercase string for storage account generation
+shortname: segwayprd
 aks:
   agents:
-    size: Standard_D2pds_v5  
+    #low cost "Ampre" Powered VM can be intel if desired 8 GB memory instances
+    # are required 
+    size: Standard_D2pds_v5
     max: 6
-shortname: segwayprd
 eventhubnamespace:
   settings:
     sku: Standard
     auto_inflate_enabled: true
-    maximum_throughput_units: 5
+    #note this has cost implication setting too low can cause data
+    #loss as eventhub will block writes from sources
+    maximum_throughput_units: 20
     network_rulesets:
       default_action: Deny
       public_network_access_enabled: false

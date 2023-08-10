@@ -5,11 +5,6 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
-  # Automatically load environment-level variables
-  state_vars = read_terragrunt_config(find_in_parent_folders("state.hcl"))
-  state_resourcegroup = local.state_vars.locals.resourcegroup
-  state_storageaccount = local.state_vars.locals.storageaccount
-  state_container = local.state_vars.locals.container
 
   azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
 }
@@ -23,9 +18,9 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    resource_group_name  = local.state_resourcegroup
-    storage_account_name = local.state_storageaccount
-    container_name       = local.state_container
+    resource_group_name  = local.azure.backend.resourcegroup
+    storage_account_name = local.azure.backend.storageaccount
+    container_name       = local.azure.backend.container
     key                  = "${path_relative_to_include()}/terraform.tfstate"
     subscription_id      = local.azure.subscription_id
   }

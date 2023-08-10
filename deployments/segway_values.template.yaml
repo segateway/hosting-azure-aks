@@ -10,18 +10,30 @@ autoscaling:
 podAnnotations:
   reloader.stakater.com/auto: "true"
 secret:
+  # base URL for logscale do not add trailing slash ie https:///something.someting.com
   url: "https://"
 config:
   syslogng:
+    # template assumes all destinations are in use remove 
+    # both filter and logpath references for unused features filters may remain
     repos:
+        #name is internal to segway matching repo is not required
       - name: iaas-microsoft-azure
+        #ingest token for azure data
         token: 
+        #name is internal to segway matching repo is not required
       - name: saas-microsoft-azuread
+        #ingest token for azuread data
         token: 
+        #name is internal to segway matching repo is not required
       - name: saas-microsoft-defender
+        #ingest token for defender data
         token: 
+        #name is internal to segway matching repo is not required
       - name: saas-microsoft-intune
+        #ingest token for intune
         token: 
+        #name is internal to segway matching repo is not required
       - name: app-segway-fallback
         token: 
         isCatchAll: true
