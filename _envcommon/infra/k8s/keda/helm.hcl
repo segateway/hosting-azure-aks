@@ -56,18 +56,29 @@ inputs = {
   repository = "https://kedacore.github.io/charts"
 
   release          = "keda"
-  chart            = "logging-operator-logging"
+  chart            = "keda"
   chart_version    = "2.11.2"
   namespace        = "keda"
   create_namespace = true
   project          = "common"
+  skipCrds         = false
 
   values = yamldecode(<<EOF
-none: ""
+crds:
+  install: true
 
 EOF
   )
 
   ignoreDifferences = [
+    {
+      group="admissionregistration.k8s.io"
+      kind="ValidatingWebhookConfiguration"
+      name="keda-admission"
+      jqPathExpressions = [
+          ".webhooks[].namespaceSelector.matchExpressions[] | select(.key == \"control-plane\")",
+          ".webhooks[].namespaceSelector"
+      ]
+    }
   ]
 }

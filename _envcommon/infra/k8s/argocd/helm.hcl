@@ -68,6 +68,13 @@ createAggregateRoles: true
 argo-cd:
   config:
     application.resourceTrackingMethod: annotation+label
+    cm:
+      data:
+        resource.customizations.ignoreDifferences.all: |
+          managedFieldsManagers:
+          - kube-controller-manager
+          jsonPointers:
+          - /spec/replicas
 redis-ha:
   enabled: false
   topologySpreadConstraints: 

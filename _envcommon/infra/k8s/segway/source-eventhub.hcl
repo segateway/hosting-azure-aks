@@ -69,7 +69,7 @@ inputs = {
 
   release          = "eh-${local.source_vars.locals.name}"
   chart            = "segway-sys-source-ms-azure-eventhub"  
-  chart_version    = "2.0.0"
+  chart_version    = "v2.1.0"
   namespace        = "seg-way"
   create_namespace = true
   project          = "segway"
@@ -79,6 +79,13 @@ inputs = {
   values = yamldecode(<<YAML
 args:
   - -e
+resources:
+  requests:
+    cpu: 200m
+    memory: 128Mi  
+autoscaling: 
+  enabled: false
+  keda: true
 podAnnotations:
   reloader.stakater.com/auto: "true"
 

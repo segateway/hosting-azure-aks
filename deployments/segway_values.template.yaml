@@ -1,5 +1,12 @@
 args:
-  - -det
+  - -e
+resources:
+  requests:
+    cpu: 200m
+    memory: 192Mi
+autoscaling: 
+  enabled: false
+  keda: true   
 podAnnotations:
   reloader.stakater.com/auto: "true"
 secret:

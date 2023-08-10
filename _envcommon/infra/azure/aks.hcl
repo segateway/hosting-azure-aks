@@ -18,6 +18,7 @@ terraform {
 # Locals are named constants that are reusable within the configuration.
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
+  azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
   
 }
 
@@ -60,8 +61,8 @@ inputs = {
   subnet_id_ag = dependency.net.outputs.virtual_subnet_id_ag
   # arm Standard_D2plds_v5
   # intel Standard_A2_v2
-  agent_size = "Standard_D2plds_v5"
-  agent_max  = 6
+  agent_size = local.azure.aks.agents.size
+  agent_max  = local.azure.aks.agents.max
 
   registry_id = dependency.registry.outputs.id
 
