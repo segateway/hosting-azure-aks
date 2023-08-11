@@ -35,7 +35,7 @@ This activity is completed one time and will be used and reused via configuratio
     ```bash
     # replace "segway-state" with a meaningful name conforming to org standards
     # --tags should be modified to conform to org standards or removed
-    az group create --name segway-state2 --location centralus --tags this=that apple=fruit
+    az group create --name segway-state --location centralus --tags this=that apple=fruit
     ```
 
 * Create a storage account with versioning enabled
@@ -55,7 +55,7 @@ This activity is completed one time and will be used and reused via configuratio
 * `cd` to the directory
 
     ```bash
-    cd hosting-azure-aks/deployment
+    cd hosting-azure-aks/deployments
     ```
 
 * Rename `deployments/*.template.yaml` to remove `.template`
@@ -108,5 +108,5 @@ This activity is completed one time and will be used and reused via configuratio
 * Deploy
 
     ```bash
-    terragrunt run-all apply --terragrunt-non-interactiveterragrunt run-all apply --terragrunt-non-interactive
+    terragrunt run-all apply --terragrunt-non-interactive
     ```
