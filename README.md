@@ -1,5 +1,12 @@
 # hosting-azure-aks
 
+This project deploys a seg-way collection platform in Azure using AKS for use with CrowdStrike/Logscale
+to collect data from Azure, AzureAD(Entra), Intune and Defender products.
+
+## Install walk through (click)
+
+[![Segway Install Walkthrough](segway.png)](https://app.screencast.com/dN58ifMCOXtKm/e "Segway Install Walkthrough")
+
 ## Required Access
 
 * The user executing this setup process will require the rights to create a security group in Azure Active Directory
