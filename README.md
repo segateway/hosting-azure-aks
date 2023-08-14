@@ -80,7 +80,7 @@ This activity is completed one time and will be used and reused via configuratio
 * Deploy
 
     ```bash
-    terragrunt run-all apply --terragrunt-non-interactiveterragrunt run-all apply --terragrunt-non-interactive
+    terragrunt run-all apply --terragrunt-non-interactiveterragrunt run-all
     ```
 
 ## Post deployment
