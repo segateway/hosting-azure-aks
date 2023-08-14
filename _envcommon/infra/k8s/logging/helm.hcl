@@ -71,6 +71,7 @@ errorOutputRef: logscale
 eventTailer: 
   name: cluster
   containerOverrides:
+    image: ghcr.io/kube-logging/eventrouter:latest
     resources:
       requests:
         cpu: 50m

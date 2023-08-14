@@ -71,9 +71,6 @@ resources:
     cpu: 50m
     memory: 70Mi
 watchNamespace: logging
-spec:
-  containerOverrides:
-    image: ghcr.io/kube-logging/eventrouter:latest
 YAML
   )
 }
