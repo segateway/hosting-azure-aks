@@ -23,6 +23,7 @@ The default AzureShell contains all required tools except terragrunt install one
 * Install terragrunt
 
     ```bash
+    mkdir bin || true
     curl -L -o ./bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.48.7/terragrunt_linux_amd64; chmod +x bin/terragrunt
     ```
 
@@ -80,7 +81,7 @@ This activity is completed one time and will be used and reused via configuratio
 * Deploy
 
     ```bash
-    terragrunt run-all apply --terragrunt-non-interactiveterragrunt run-all apply --terragrunt-non-interactive
+    terragrunt run-all apply --terragrunt-non-interactive
     ```
 
 ## Post deployment

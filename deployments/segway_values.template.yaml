@@ -10,33 +10,14 @@ autoscaling:
 podAnnotations:
   reloader.stakater.com/auto: "true"
 secret:
-  # base URL for logscale do not add trailing slash ie https:///something.someting.com
-  url: "https://"
+  host: 
+  #must be org or system token requires 1.98>
+  token: 
 config:
   syslogng:
     # template assumes all destinations are in use remove 
     # both filter and logpath references for unused features filters may remain
-    repos:
-        #name is internal to segway matching repo is not required
-      - name: iaas-microsoft-azure
-        #ingest token for azure data
-        token: 
-        #name is internal to segway matching repo is not required
-      - name: saas-microsoft-azuread
-        #ingest token for azuread data
-        token: 
-        #name is internal to segway matching repo is not required
-      - name: saas-microsoft-defender
-        #ingest token for defender data
-        token: 
-        #name is internal to segway matching repo is not required
-      - name: saas-microsoft-intune
-        #ingest token for intune
-        token: 
-        #name is internal to segway matching repo is not required
-      - name: app-segway-fallback
-        token: 
-        isCatchAll: true
+    
     filters:
       - name: f_azure
         condition: |-
@@ -54,53 +35,45 @@ config:
       - name: azure
         filters:
           - filter(f_azure)
-        destinations:
-          - iaas-microsoft-azure
         flags: [catchall, final]
         template: t_logscale_parsed
         tags: 
           - name: vendor
             value: microsoft
-          - name: type
-            value: azure
+        repo: segway-iaas-microsoft-azure
+        sourcetype: azure
       - name: azuread
         filters:
           - filter(f_azuread)
-        destinations:
-          - saas-microsoft-azuread
         flags: [catchall, final]
         template: t_logscale_parsed
         tags: 
           - name: vendor
             value: microsoft
-          - name: type
-            value: azuread
+        sourcetype: azuread
+        repo: segway-saas-microsoft-azuread
       - name: defender
         filters:
           - filter(f_defender)
-        destinations:
-          - saas-microsoft-defender
         flags: [catchall, final]
         template: t_logscale_parsed
         tags: 
           - name: vendor
             value: microsoft
-          - name: type
-            value: defender
+        sourcetype: defender
+        repo: segway-saas-microsoft-azuread
       - name: intune
         filters:
           - filter(f_azuread)
-        destinations:
-          - saas-microsoft-intune
         flags: [catchall, final]
         template: t_logscale_parsed
         tags: 
           - name: vendor
             value: microsoft
-          - name: type
-            value: intune
+        sourcetype: intune
+        repo: segway-saas-microsoft-intune
       - name: fallback
-        destinations:
-          - app-segway-fallback
         template: t_logscale_parsed
+        sourcetype: segway-unknown
+        repo: app-segway-fallback
         flags: [catchall, fallback, final]

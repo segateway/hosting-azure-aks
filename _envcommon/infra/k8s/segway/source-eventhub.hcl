@@ -69,7 +69,7 @@ inputs = {
 
   release          = "eh-${local.source_vars.locals.name}"
   chart            = "segway-sys-source-ms-azure-eventhub"  
-  chart_version    = "v2.1.0"
+  chart_version    = "v2.1.1"
   namespace        = "seg-way"
   create_namespace = true
   project          = "segway"
@@ -86,6 +86,7 @@ resources:
 autoscaling: 
   enabled: false
   keda: true
+  maxReplicas: 2  
 podAnnotations:
   reloader.stakater.com/auto: "true"
 

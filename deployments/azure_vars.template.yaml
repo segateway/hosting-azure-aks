@@ -1,10 +1,16 @@
 location: EastUS
 #Subscription ID of azure subscription to create resources
+# Change to this value after first apply is destructive and will require
+# Reconfiguration of all log sources in azure/m365/intune/defender
 subscription_id:
 #Subscription ID of AzureAD subscription for Access Group creation
+# Change to this value after first apply is destructive and will require
+# Reconfiguration of all log sources in azure/m365/intune/defender
 tenant_id:
 backend:
   #Manually created resource group and storage accounts for tf state
+  # Change these values after first apply is destructive and will require
+  # Reconfiguration of all log sources in azure/m365/intune/defender
   resourcegroup: 
   storageaccount: 
   container: tfstate
@@ -13,10 +19,14 @@ tags:
   Environment: production
   Project: segway
 #Name of resource group for segway resources lower case no spaces
+# Change to this value after first apply is destructive and will require
+# Reconfiguration of all log sources in azure/m365/intune/defender
 resourcegroup: segway-prod
 #Short lowercase string for vault
 vaultPrefix: segwayprd
 #Short lowercase string for storage account generation
+# Change to this value after first apply is destructive and will require
+# Reconfiguration of all log sources in azure/m365/intune/defender
 shortname: segwayprd
 aks:
   agents:
@@ -29,6 +39,8 @@ aks:
     max: 6
 eventhubnamespace:
   settings:
+    # Change to this value after first apply is destructive and will require
+    # Reconfiguration of all log sources in azure/m365/intune/defender
     sku: Standard
     auto_inflate_enabled: true
     #note this has cost implication setting too low can cause data

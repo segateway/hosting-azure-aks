@@ -59,7 +59,7 @@ inputs = {
 
   release          = "ls-cloud"
   chart            = "segway-sys-dest-logscale"
-  chart_version    = "v3.0.0-next-major.1"
+  chart_version    = "v3.0.0-next-major.26"
   namespace        = "seg-way"
   create_namespace = true
   project          = "segway"
