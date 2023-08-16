@@ -102,6 +102,8 @@ clusterFlows:
         - record_transformer:
             records:
             - cluster_name: "${dependency.k8s.outputs.name}"
+            - index: ${local.logscale.data.infraHosts.repo}
+            - sourcetype: ${local.logscale.data.infraHosts.sourcetype}
       match:
       - select:
           labels:
@@ -109,13 +111,15 @@ clusterFlows:
           namespaces:
             - logging
       globalOutputRefs:
-        - logscale-infra-host
+        - logscale
   - name: k8s-infra-events
     spec:
       filters:
         - record_transformer:
             records:
             - cluster_name: "${dependency.k8s.outputs.name}"
+            - index: ${local.logscale.data.infraEvents.repo}
+            - sourcetype: ${local.logscale.data.infraEvents.sourcetype}
       match:
       - select:
           labels:
@@ -123,13 +127,15 @@ clusterFlows:
           namespaces:
             - logging
       globalOutputRefs:
-        - logscale-infra-event
+        - logscale
   - name: k8s-infra-pods
     spec:
       filters:
         - record_transformer:
             records:
             - cluster_name: "${dependency.k8s.outputs.name}"
+            - index: ${local.logscale.data.infraPods.repo}
+            - sourcetype: ${local.logscale.data.infraPods.sourcetype}
       match:
       - exclude:
           labels:
@@ -178,13 +184,15 @@ clusterFlows:
           namespaces:
             - reloader            
       globalOutputRefs:
-        - logscale-infra-pod
+        - logscale
   - name: k8s-app-pods
     spec:
       filters:
         - record_transformer:
             records:
-            - cluster_name: "${dependency.k8s.outputs.name}"
+            - cluster_name: "${dependency.k8s.outputs.name}"            
+            - index: ${local.logscale.data.appPods.repo}
+            - sourcetype: ${local.logscale.data.appPods.sourcetype}
       match:
       - exclude:
           namespaces:
@@ -224,12 +232,10 @@ clusterFlows:
             - keda
       - select: {}
       globalOutputRefs:
-        - logscale-app-pod
-
-
+        - logscale
 
 clusterOutputs:
-  - name: logscale-infra-event
+  - name: logscale
     spec:
       splunkHec:
         ca_path: 
@@ -241,58 +247,12 @@ clusterOutputs:
         hec_token:
           valueFrom:
             secretKeyRef:
-              name: logscale-k8s-infra-events
+              name: logscale-k8s
               key: token
+        index_key: index
+        sourcetype_key: sourcetype
         format:
           type: json
-  - name: logscale-infra-host
-    spec:
-      splunkHec:
-        ca_path: 
-          value: /etc/ssl/certs/
-        hec_host: ${local.logscale.instance.host}
-        insecure_ssl: ${local.logscale.instance.insecure}
-        protocol: ${local.logscale.instance.protocol}
-        hec_port: ${local.logscale.instance.port}
-        hec_token:
-          valueFrom:
-            secretKeyRef:
-              name: logscale-k8s-infra-hosts
-              key: token
-        format:
-          type: json
-  - name: logscale-infra-pod
-    spec:
-      splunkHec:
-        ca_path: 
-          value: /etc/ssl/certs/
-        hec_host: ${local.logscale.instance.host}
-        insecure_ssl: ${local.logscale.instance.insecure}
-        protocol: ${local.logscale.instance.protocol}
-        hec_port: ${local.logscale.instance.port}
-        hec_token:
-          valueFrom:
-            secretKeyRef:
-              name: logscale-k8s-infra-pods
-              key: token
-        format:
-          type: json          
-  - name: logscale-app-pod
-    spec:
-      splunkHec:
-        ca_path: 
-          value: /etc/ssl/certs/
-        hec_host: ${local.logscale.instance.host}
-        insecure_ssl: ${local.logscale.instance.insecure}
-        protocol: ${local.logscale.instance.protocol}
-        hec_port: ${local.logscale.instance.port}
-        hec_token:
-          valueFrom:
-            secretKeyRef:
-              name: logscale-k8s-app-pods
-              key: token
-        format:
-          type: json          
 
 fluentbit:
   resources:

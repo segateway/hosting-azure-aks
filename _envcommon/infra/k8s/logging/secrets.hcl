@@ -64,22 +64,10 @@ inputs = {
 
   values = yamldecode(<<EOF
 secrets: 
-  logscale-k8s-infra-events:
-    nameTemplate: logscale-k8s-infra-events
+  logscale-k8s:
+    nameTemplate: logscale-k8s
     stringData:
-      token: ${local.logscale.k8s.infraEvents} 
-  logscale-k8s-infra-hosts:
-    nameTemplate: logscale-k8s-infra-hosts
-    stringData:
-      token: ${local.logscale.k8s.infraHosts} 
-  logscale-k8s-infra-pods:
-    nameTemplate: logscale-k8s-infra-pods
-    stringData:
-      token: ${local.logscale.k8s.infraPods} 
-  logscale-k8s-app-pods:
-    nameTemplate: logscale-k8s-app-pods
-    stringData:
-      token: ${local.logscale.k8s.appPods} 
+      token: ${local.logscale.instance.token} 
 EOF
   )
 
