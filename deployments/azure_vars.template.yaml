@@ -1,33 +1,29 @@
-location: EastUS
-#Subscription ID of azure subscription to create resources
+# Value of AZRG
+resourcegroup: segway-ps-prod
+# Value of AZSTATE manually created during the setup phase
+statestorageaccount: segwaylspsprodstate
+statecontainer: tfstate
+# Subscription ID of azure subscription to create resources
 # Change to this value after first apply is destructive and will require
 # Reconfiguration of all log sources in azure/m365/intune/defender
 subscription_id:
-#Subscription ID of AzureAD subscription for Access Group creation
+# Subscription ID of AzureAD subscription for Access Group creation
 # Change to this value after first apply is destructive and will require
 # Reconfiguration of all log sources in azure/m365/intune/defender
 tenant_id:
-backend:
-  #Manually created resource group and storage accounts for tf state
-  # Change these values after first apply is destructive and will require
-  # Reconfiguration of all log sources in azure/m365/intune/defender
-  resourcegroup: 
-  storageaccount: 
-  container: tfstate
 tags:
   #Any number of kv pairs as required by local policy
   Environment: production
   Project: segway
-#Name of resource group for segway resources lower case no spaces
-# Change to this value after first apply is destructive and will require
-# Reconfiguration of all log sources in azure/m365/intune/defender
-resourcegroup: segway-prod
 #Short lowercase string for vault
 vaultPrefix: segwayprd
 #Short lowercase string for storage account generation
 # Change to this value after first apply is destructive and will require
 # Reconfiguration of all log sources in azure/m365/intune/defender
 shortname: segwayprd
+network:
+  network: "10.0.0.0/22"
+admingroups: []
 aks:
   agents:
     #low cost "Ampre" Powered VM can be intel if desired 8 GB memory instances

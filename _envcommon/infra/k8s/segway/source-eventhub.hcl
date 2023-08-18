@@ -75,7 +75,7 @@ inputs = {
 
   values = yamldecode(<<YAML
 args:
-  - -edt
+  - -e
 resources:
   requests:
     cpu: 200m

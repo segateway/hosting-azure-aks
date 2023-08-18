@@ -58,7 +58,7 @@ inputs = {
   agent_size = local.azure.aks.agents.size
   agent_max  = local.azure.aks.agents.max
 
-  admins_group_ids = [dependency.adminGroup.outputs.id, "d3a25eb5-6990-4eb8-9118-f27dbb6da9ac"]
+  admins_group_ids = concat([dependency.adminGroup.outputs.id],local.azure.admingroups)
 
   workload_identity_enabled           = true
   ingress_application_gateway_enabled = false
