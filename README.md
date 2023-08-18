@@ -33,30 +33,45 @@ The default AzureShell contains all required tools except terragrunt install one
     git clone https://github.com/seg-way/hosting-azure-aks.git
     ```
 
-## Setup State
+## Create the resource group
 
-This activity is completed one time and will be used and reused via configuration
+### using cli
 
-* Launch the AzureShell using the link above
-* Create a Resource Group to contain the terraform state storage account
+While an existing resource group can be used a shared group may be confusing to future administrator
 
-    ```bash
-    # replace "segway-state" with a meaningful name conforming to org standards
-    # --tags should be modified to conform to org standards or removed
-    az group create --name segway-state --location centralus --tags this=that apple=fruit
-    ```
+```bash
+# replace "segway-state" with a meaningful name conforming to org standards
+# --tags should be modified to conform to org standards or removed
+AZRG=<name of group>
+# Such as EastUS
+AZLOCATION=<Azure Location> 
+az group create --name $AZRG --location $AZLOCATION
+```
 
-* Create a storage account with versioning enabled
+### Existing or created by another process
 
-    ```bash
-    az storage account create --name orgshortnamesegwaystate --resource-group "segway-state" --tags this=that apple=fruit
-    ```
+Using an exisitng group simply set the variable for later use
 
-* Create a container in the storage account named "tfstate"
+```bash
+AZRG=<name of group>
+```
 
-    ```bash
-    az storage container create --name tfstate --auth-mode login --account-name orgshortnamesegwaystate --public-access off
-    ```
+## Create a storage account for tf state
+
+The storage account and container created below will be accessible via internet endpoints. Use a approved configuration appropriate for your environment as needed.
+
+1 Create a storage account note the name of this account must be unique among *ALL* Azure customers. The name selected must conform to Azure requirements. Most commonly all lower case and numeric with no spaces dashes or symbols.
+
+```bash
+AZSTATE=shortuniquename
+az storage account create --name $AZSTATE --resource-group $AZRG
+```
+
+2 Create a container in the storage account named "tfstate"
+
+```bash
+az storage container create --name tfstate --auth-mode login --account-name $AZSTATE --public-access off
+```
 
 ## Configure
 

@@ -29,7 +29,8 @@ generate "provider" {
   path      = "provider_azuread.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<-EOF
-provider "azuread" {  
+provider "azuread" {
+  
   tenant_id = "${local.azure.tenant_id}"
 }    
   EOF

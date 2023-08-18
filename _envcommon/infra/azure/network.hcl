@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/network/azurerm?version=1.0.1"
+  source = "tfr:///seg-way/network/azurerm?version=2.1.0"
 }
 
 
@@ -18,12 +18,12 @@ terraform {
 # Locals are named constants that are reusable within the configuration.
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
+  azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
 
 }
 
-
 dependency "rg" {
-  config_path = "${get_terragrunt_dir()}/../resourcegroup/"
+  config_path = "${get_terragrunt_dir()}/../../resourcegroup/"
 }
 # ---------------------------------------------------------------------------------------------------------------------
 # MODULE PARAMETERS
@@ -31,13 +31,12 @@ dependency "rg" {
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
+  name           = dependency.rg.outputs.resource_group_name
   resource_group = dependency.rg.outputs.resource_group_name
   tags           = dependency.rg.outputs.tags
 
   location = dependency.rg.outputs.resource_group_location
 
-  network   = "10.0.0.0/8"
-  subnet    = "10.1.0.0/20"
-  subnet_ag = "10.1.16.0/20"
+  network = local.azure.network.network
 
 }

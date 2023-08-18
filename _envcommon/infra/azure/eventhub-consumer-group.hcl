@@ -18,20 +18,16 @@ terraform {
 # Locals are named constants that are reusable within the configuration.
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
-
-  group_vars = read_terragrunt_config("cgroup.hcl")
-  group_name = local.group_vars.locals.name
-
 }
 
 dependency "rg_collectors" {
-  config_path = "${get_terragrunt_dir()}/../../../../resourcegroup/"
+  config_path = "${get_terragrunt_dir()}/../../../../../infra/resourcegroup/"
 }
 dependency "ehns" {
-  config_path = "${get_terragrunt_dir()}/../../../../eventhub-namespace/"
+  config_path = "${get_terragrunt_dir()}/../../../../../infra/eventhub-namespace/namespace/"
 }
 dependency "eh" {
-  config_path = "${get_terragrunt_dir()}/../../hub/"
+  config_path = "${get_terragrunt_dir()}/../eventhub/"
 }
 # ---------------------------------------------------------------------------------------------------------------------
 # MODULE PARAMETERS
@@ -39,10 +35,8 @@ dependency "eh" {
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  name                = local.group_name
+  name                = "segway"
   namespace_name      = dependency.ehns.outputs.name
   eventhub_name       = dependency.eh.outputs.name
   resource_group_name = dependency.rg_collectors.outputs.resource_group_name
-
-
 }

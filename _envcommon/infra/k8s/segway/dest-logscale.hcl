@@ -23,11 +23,11 @@ locals {
 }
 
 dependency "k8s" {
-  config_path = "${get_terragrunt_dir()}/../../../k8s/"
+  config_path = "${get_terragrunt_dir()}/../../infra/k8s/"
 }
 dependencies {
   paths = [
-    "${get_terragrunt_dir()}/../../argocd/projects/segway",
+    "${get_terragrunt_dir()}/../../infra/k8s-system/argocd/projects/segway",
   ]
 }
 generate "provider" {
@@ -59,7 +59,7 @@ inputs = {
 
   release          = "ls-cloud"
   chart            = "segway-sys-dest-logscale"
-  chart_version    = "v3.0.0-next-major.26"
+  chart_version    = "v3.0.0"
   namespace        = "seg-way"
   create_namespace = true
   project          = "segway"

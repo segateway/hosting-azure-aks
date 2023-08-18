@@ -72,12 +72,12 @@ EOF
 
   ignoreDifferences = [
     {
-      group="admissionregistration.k8s.io"
-      kind="ValidatingWebhookConfiguration"
-      name="keda-admission"
+      group = "admissionregistration.k8s.io"
+      kind  = "ValidatingWebhookConfiguration"
+      name  = "keda-admission"
       jqPathExpressions = [
-          ".webhooks[].namespaceSelector.matchExpressions[] | select(.key == \"control-plane\")",
-          ".webhooks[].namespaceSelector"
+        ".webhooks[].namespaceSelector.matchExpressions[] | select(.key == \"control-plane\")",
+        ".webhooks[].namespaceSelector"
       ]
     }
   ]

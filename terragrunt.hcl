@@ -18,9 +18,9 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    resource_group_name  = local.azure.backend.resourcegroup
-    storage_account_name = local.azure.backend.storageaccount
-    container_name       = local.azure.backend.container
+    resource_group_name  = local.azure.resourcegroup
+    storage_account_name = local.azure.statestorageaccount
+    container_name       = local.azure.statecontainer
     key                  = "${path_relative_to_include()}/terraform.tfstate"
     subscription_id      = local.azure.subscription_id
   }

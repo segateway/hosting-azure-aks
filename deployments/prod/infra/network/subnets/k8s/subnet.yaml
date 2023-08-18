@@ -1,0 +1,5 @@
+name: k8s
+subnet: "10.0.2.0/23"
+private_endpoint_network_policies_enabled: true
+private_link_service_network_policies_enabled: true
+service_endpoints: []

@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///kumarvna/storage/azurerm?version=2.5.0"
+  source = "tfr:///seg-way/storage-account/azurerm?version=1.3.0"
 }
 
 
@@ -25,11 +25,11 @@ locals {
 
 
 dependency "rg_collectors" {
-  config_path = "${get_terragrunt_dir()}/../resourcegroup/"
+  config_path = "${get_terragrunt_dir()}/../../resourcegroup/"
 }
-dependency "net" {
-  config_path = "${get_terragrunt_dir()}/../network/"
-}
+# dependency "net" {
+#   config_path = "${get_terragrunt_dir()}/../network/"
+# }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # MODULE PARAMETERS
@@ -37,26 +37,11 @@ dependency "net" {
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  resource_group_name  = dependency.rg_collectors.outputs.resource_group_name
-  location             = dependency.rg_collectors.outputs.resource_group_location
-  storage_account_name = local.azure.shortname
+  resource_group_name = dependency.rg_collectors.outputs.resource_group_name
+  location            = dependency.rg_collectors.outputs.resource_group_location
+  name                = local.azure.clusterstorage
 
-  containers_list = [
-    { name = "azure", access_type = "private" },
-    { name = "azuread", access_type = "private" },
-    { name = "defender", access_type = "private" },
-    { name = "intune", access_type = "private" }
-  ]
-  # network_rules = {
-  #   bypass = [
-  #     "Logging",
-  #     "Metrics",
-  #     "AzureServices"
-  #   ]
-  #   ip_rules = []
-  #   subnet_ids = [
-  #     dependency.net.outputs.virtual_subnet_id
-  #   ]
-  # }
+  public_network_access_enabled = local.azure.public_network_access_enabled
+  firewall_bypass_current_ip    = true
 
 }

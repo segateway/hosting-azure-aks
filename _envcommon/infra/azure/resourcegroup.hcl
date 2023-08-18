@@ -11,7 +11,7 @@
 # deployed version.
 
 terraform {
-  source = "tfr:///seg-way/resource-group/azurerm?version=1.0.1"
+  source = "tfr:///seg-way/resource-group-existing/azurerm?version=2.0.0"
 }
 
 
@@ -33,7 +33,5 @@ locals {
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  uniqueName = local.azure.resourcegroup
-  location   = local.azure.location
-  tags       = local.azure.tags
+  name = local.azure.resourcegroup
 }

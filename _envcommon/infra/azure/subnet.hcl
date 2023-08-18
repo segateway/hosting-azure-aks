@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/eventhub-namespace/azurerm?version=2.0.3"
+  source = "tfr:///seg-way/subnet/azurerm?version=1.2.0"
 }
 
 
@@ -19,37 +19,28 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
   azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
-}
+  vnet  = yamldecode(file("${path_relative_to_include()}/subnet.yaml"))
 
+}
 
 dependency "rg" {
-  config_path = "${get_terragrunt_dir()}/../../resourcegroup/"
+  config_path = "${get_terragrunt_dir()}/../../../resourcegroup/"
 }
-# dependency "net" {
-#   config_path = "${get_terragrunt_dir()}/../../network/"
-# }
-
+dependency "net" {
+  config_path = "${get_terragrunt_dir()}/../../vnet/"
+}
 # ---------------------------------------------------------------------------------------------------------------------
 # MODULE PARAMETERS
 # These are the variables we have to pass in to use the module. This defines the parameters that are common across all
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  rg_name                  = dependency.rg.outputs.resource_group_name
-  event_hub_namespace_name = dependency.rg.outputs.resource_group_name
-  location                 = dependency.rg.outputs.resource_group_location
+  name           = local.vnet.name
+  resource_group = dependency.rg.outputs.resource_group_name
 
-  public_network_access_enabled = false
-  settings = {
-    sku                      = local.azure.eventhubnamespace.settings.sku
-    auto_inflate_enabled     = local.azure.eventhubnamespace.settings.auto_inflate_enabled
-    maximum_throughput_units = local.azure.eventhubnamespace.settings.maximum_throughput_units
-
-    network_rulesets = {
-      default_action = local.azure.eventhubnamespace.settings.network_rulesets.default_action
-      # For Azure, AzureAD, Intune and Defender sources this must be true without the sources
-      # Can not deliver events. See https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings?tabs=portal#destination-limitations
-      trusted_service_access_enabled = true
-    }
-  }
+  virtual_network_name                          = dependency.net.outputs.virtual_network_name
+  subnet                                        = local.vnet.subnet
+  private_endpoint_network_policies_enabled     = local.vnet.private_endpoint_network_policies_enabled
+  private_link_service_network_policies_enabled = local.vnet.private_link_service_network_policies_enabled
+  service_endpoints                             = local.vnet.service_endpoints
 }
