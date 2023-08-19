@@ -66,7 +66,7 @@ inputs = {
 
   release          = "eh-${local.hub.name}"
   chart            = "segway-sys-source-ms-azure-eventhub"
-  chart_version    = "v2.1.1"
+  chart_version    = "v2.1.2"
   namespace        = "seg-way"
   create_namespace = true
   project          = "segway"
