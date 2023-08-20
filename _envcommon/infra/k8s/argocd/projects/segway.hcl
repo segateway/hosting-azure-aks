@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/argocd-project/kubernetes?version=1.0.0"
+  source = "tfr:///segateway/argocd-project/kubernetes?version=1.0.0"
 }
 
 dependency "k8s" {
@@ -46,9 +46,9 @@ EOF
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  name        = "segway"
+  name        = "segateway"
   namespace   = "argocd"
-  description = "Used for cluster segway resources"
+  description = "Used for cluster segateway resources"
   repository  = "https://argoproj.github.io/argo-helm"
 
   destinations = [

@@ -11,7 +11,7 @@
 # deployed version.
 
 terraform {
-  source = "tfr:///seg-way/resource-group-existing/azurerm?version=2.0.0"
+  source = "tfr:///segateway/resource-group-existing/azurerm?version=2.0.0"
 }
 
 

@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/argocd-applicationset/kubernetes?version=1.0.0"
+  source = "tfr:///segateway/argocd-applicationset/kubernetes?version=1.0.0"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -55,14 +55,14 @@ inputs = {
   name = "ls-cloud"
 
 
-  repository = "https://seg-way.github.io/charts"
+  repository = "https://segateway.github.io/charts"
 
   release          = "ls-cloud"
-  chart            = "segway-sys-dest-logscale"
+  chart            = "segateway-sys-dest-logscale"
   chart_version    = "v3.0.0"
-  namespace        = "seg-way"
+  namespace        = "segateway"
   create_namespace = true
-  project          = "segway"
+  project          = "segateway"
   skipCrds         = false
 
 

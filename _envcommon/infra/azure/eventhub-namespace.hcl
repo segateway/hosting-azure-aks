@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/eventhub-namespace/azurerm?version=2.0.3"
+  source = "tfr:///segateway/eventhub-namespace/azurerm?version=2.0.4"
 }
 
 
