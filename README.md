@@ -116,6 +116,10 @@ clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway -d 31
 * Configure activity logging settings for AzureAD to use the created azuread eventhub
 * Configure defender and intune to the respective defender and intune hubs
 
+[![Segway Configure logging](segway.png)](https://app.screencast.com/kNzItkQAhNDVp/e "Microsoft Cloud Logging Configuration Walkthrough")
+
+
+
 ## Upgrades
 
 * Launch [![Launch Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/media/embed-cloud-shell/launch-cloud-shell-1.png)](https://shell.azure.com/bash)
