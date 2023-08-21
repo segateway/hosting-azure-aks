@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/akscluster/azurerm?version=1.1.0"
+  source = "tfr:///segateway/akscluster/azurerm?version=2.1.1"
 }
 
 
@@ -19,27 +19,21 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
   azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
-  
+
 }
 
 
 dependency "rg" {
-  config_path = "${get_terragrunt_dir()}/../../resourcegroup/"
+  config_path = "${get_terragrunt_dir()}/../resourcegroup/"
 }
-dependency "net" {
-  config_path = "${get_terragrunt_dir()}/../../network/"
+dependency "subnet_k8s" {
+  config_path = "${get_terragrunt_dir()}/../network/subnets/k8s"
 }
-dependency "admins" {
-  config_path = "${get_terragrunt_dir()}/../../cluster-admins/"
+dependency "subnet_agw" {
+  config_path = "${get_terragrunt_dir()}/../network/subnets/agw"
 }
-dependency "registry" {
-  config_path = "${get_terragrunt_dir()}/../registry/"
-}
-dependency "ehns" {
-  config_path = "${get_terragrunt_dir()}/../../eventhub-namespace/"
-}
-dependency "eh" {
-  config_path = "${get_terragrunt_dir()}/../../eventhubs/azure/hub"
+dependency "adminGroup" {
+  config_path = "${get_terragrunt_dir()}/../k8s-admins/"
 }
 # ---------------------------------------------------------------------------------------------------------------------
 # MODULE PARAMETERS
@@ -54,26 +48,19 @@ inputs = {
 
   # sku_tier = "Standard"
 
-  admins_group_id = dependency.admins.outputs.id
 
-
-  subnet_id    = dependency.net.outputs.virtual_subnet_id
-  subnet_id_ag = dependency.net.outputs.virtual_subnet_id_ag
+  subnet_id      = dependency.subnet_k8s.outputs.id
+  subnet_id_ag   = dependency.subnet_agw.outputs.id
+  service_cidr   = "10.0.4.0/24"
+  dns_service_ip = "10.0.4.10"
   # arm Standard_D2plds_v5
   # intel Standard_A2_v2
   agent_size = local.azure.aks.agents.size
   agent_max  = local.azure.aks.agents.max
 
-  registry_id = dependency.registry.outputs.id
-
-
+  admins_group_ids = concat([dependency.adminGroup.outputs.id],local.azure.admingroups)
 
   workload_identity_enabled           = true
   ingress_application_gateway_enabled = false
-
-  eventhub_namespace      = dependency.ehns.outputs.name
-  eventhub_name           = dependency.eh.outputs.name
-  eventhub_resource_group = dependency.rg.outputs.resource_group_name
-
 
 }

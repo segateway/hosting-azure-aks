@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/argocd-applicationset/kubernetes?version=1.0.0"
+  source = "tfr:///segateway/argocd-applicationset/kubernetes?version=1.0.0"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -19,25 +19,22 @@ terraform {
 locals {
 
 
-  # Automatically load environment-level variables
-  source_vars = read_terragrunt_config("_source.hcl")
-
-
+  hub = yamldecode(file(find_in_parent_folders("hub.yaml")))
 }
 
 dependency "k8s" {
-  config_path = "${get_terragrunt_dir()}/../../../k8s/"
+  config_path = "${get_terragrunt_dir()}/../../../../../infra/k8s/"
 }
 dependency "storage" {
-  config_path = "${get_terragrunt_dir()}/../../../../storage-account/"
+  config_path = "${get_terragrunt_dir()}/../../../../../infra/storage/account"
 }
 dependency "ehns" {
-  config_path = "${get_terragrunt_dir()}/../../../../eventhub-namespace/"
+  config_path = "${get_terragrunt_dir()}/../../../../../infra/eventhub-namespace/namespace/"
 }
 dependencies {
   paths = [
-    "${get_terragrunt_dir()}/../../argocd/projects/segway",
-    "${get_terragrunt_dir()}/../../../../eventhubs/${local.source_vars.locals.name}/consumergroups/segway/",
+    "${get_terragrunt_dir()}/../../../../../infra/k8s-system/argocd/projects/segway",
+    "${get_terragrunt_dir()}/../consumergroup",
   ]
 }
 generate "provider" {
@@ -62,17 +59,17 @@ EOF
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  name = "eh-${local.source_vars.locals.name}"
+  name = "eh-${local.hub.name}"
 
 
-  repository = "https://seg-way.github.io/charts"
+  repository = "https://segateway.github.io/charts"
 
-  release          = "eh-${local.source_vars.locals.name}"
-  chart            = "segway-sys-source-ms-azure-eventhub"  
-  chart_version    = "v2.1.0"
-  namespace        = "seg-way"
+  release          = "eh-${local.hub.name}"
+  chart            = "segateway-sys-source-ms-azure-eventhub"
+  chart_version    = "v2.1.2"
+  namespace        = "segateway"
   create_namespace = true
-  project          = "segway"
+  project          = "segateway"
   skipCrds         = false
 
 
@@ -86,6 +83,7 @@ resources:
 autoscaling: 
   enabled: false
   keda: true
+  maxReplicas: 3
 podAnnotations:
   reloader.stakater.com/auto: "true"
 
@@ -94,16 +92,18 @@ nexthop:
 config:
   data:
     vendor: microsoft
-    product: ${local.source_vars.locals.name}
-    appparser: microsoft-${local.source_vars.locals.name}
+    product: ${local.hub.name}
+    appparser: microsoft-${local.hub.name}
   startingPosition: -1
 secret:
   data:
     AZURE_STORAGE_CONN_STR: "${dependency.storage.outputs.storage_primary_connection_string}"
-    AZURE_STORAGE_CONTAINER: "${local.source_vars.locals.name}"
-    EVENT_HUB_CONN_STR: "${dependency.ehns.outputs.default_primary_connection_string};EntityPath=${local.source_vars.locals.name}"
+    AZURE_STORAGE_CONTAINER: "${local.hub.name}"
+    AZURE_STORAGE_CUSTOM_ENDPOINT: storage-cluster-blob.privatelink.blob.core.windows.net
+    EVENT_HUB_CONN_STR: "${dependency.ehns.outputs.default_primary_connection_string};EntityPath=${local.hub.name}"
     EVENT_HUB_CONSUMER_GROUP: "segway"
     # EVENT_HUB_TRANSPORT_TYPE: "AmqpOverWebsocket"  
+    # EVENT_HUB_CUSTOM_ENDPOINT: sb://eventhubnamespace.privatelink.servicebus.windows.net
 YAML
   )
 

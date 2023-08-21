@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/argocd-applicationset/kubernetes?version=1.0.0"
+  source = "tfr:///segateway/argocd-applicationset/kubernetes?version=1.0.0"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -23,11 +23,11 @@ locals {
 }
 
 dependency "k8s" {
-  config_path = "${get_terragrunt_dir()}/../../../k8s/"
+  config_path = "${get_terragrunt_dir()}/../../infra/k8s/"
 }
 dependencies {
   paths = [
-    "${get_terragrunt_dir()}/../../argocd/projects/segway",
+    "${get_terragrunt_dir()}/../../infra/k8s-system/argocd/projects/segway",
   ]
 }
 generate "provider" {
@@ -55,14 +55,14 @@ inputs = {
   name = "ls-cloud"
 
 
-  repository = "https://seg-way.github.io/charts"
+  repository = "https://segateway.github.io/charts"
 
   release          = "ls-cloud"
-  chart            = "segway-sys-dest-logscale"
-  chart_version    = "v2.1.0"
-  namespace        = "seg-way"
+  chart            = "segateway-sys-dest-logscale"
+  chart_version    = "v3.0.0"
+  namespace        = "segateway"
   create_namespace = true
-  project          = "segway"
+  project          = "segateway"
   skipCrds         = false
 
 

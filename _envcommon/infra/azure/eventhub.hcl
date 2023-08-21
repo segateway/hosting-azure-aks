@@ -19,17 +19,16 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
 
-  hub_vars = read_terragrunt_config(find_in_parent_folders("hub.hcl"))
-  hub_name = local.hub_vars.locals.hub_name
+  hub = yamldecode(file(find_in_parent_folders("hub.yaml")))
 
 }
 
 
 dependency "rg_collectors" {
-  config_path = "${get_terragrunt_dir()}/../../../resourcegroup/"
+  config_path = "${get_terragrunt_dir()}/../../../../../infra/resourcegroup/"
 }
 dependency "ehns" {
-  config_path = "${get_terragrunt_dir()}/../../../eventhub-namespace/"
+  config_path = "${get_terragrunt_dir()}/../../../../../infra/eventhub-namespace/namespace/"
 }
 # ---------------------------------------------------------------------------------------------------------------------
 # MODULE PARAMETERS
@@ -40,7 +39,7 @@ inputs = {
   rg_name  = dependency.rg_collectors.outputs.resource_group_name
   location = dependency.rg_collectors.outputs.resource_group_location
 
-  event_hub_name = local.hub_name
+  event_hub_name = local.hub.name
   namespace_name = dependency.ehns.outputs.name
 
   settings = {

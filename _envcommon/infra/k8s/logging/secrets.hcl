@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/argocd-applicationset/kubernetes?version=1.0.0"
+  source = "tfr:///segateway/argocd-applicationset/kubernetes?version=1.0.0"
 }
 
 
@@ -64,22 +64,10 @@ inputs = {
 
   values = yamldecode(<<EOF
 secrets: 
-  logscale-k8s-infra-events:
-    nameTemplate: logscale-k8s-infra-events
+  logscale-k8s:
+    nameTemplate: logscale-k8s
     stringData:
-      token: ${local.logscale.k8s.infraEvents} 
-  logscale-k8s-infra-hosts:
-    nameTemplate: logscale-k8s-infra-hosts
-    stringData:
-      token: ${local.logscale.k8s.infraHosts} 
-  logscale-k8s-infra-pods:
-    nameTemplate: logscale-k8s-infra-pods
-    stringData:
-      token: ${local.logscale.k8s.infraPods} 
-  logscale-k8s-app-pods:
-    nameTemplate: logscale-k8s-app-pods
-    stringData:
-      token: ${local.logscale.k8s.appPods} 
+      token: ${local.logscale.instance.token} 
 EOF
   )
 

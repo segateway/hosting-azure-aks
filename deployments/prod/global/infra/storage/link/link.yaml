@@ -1,0 +1,4 @@
+resource: account
+zone: blob
+subresource_names:
+  - blob

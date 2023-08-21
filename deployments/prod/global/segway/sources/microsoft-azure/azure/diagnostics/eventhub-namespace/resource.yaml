@@ -1,0 +1,5 @@
+path: infra/eventhub-namespace/namespace
+logs:
+  - RuntimeAuditLogs
+  - AutoScaleLogs
+  - OperationalLogs

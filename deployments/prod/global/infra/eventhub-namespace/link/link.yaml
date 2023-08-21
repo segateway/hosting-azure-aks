@@ -1,0 +1,4 @@
+resource: namespace
+zone: eventhub-namespace
+subresource_names:
+  - namespace

@@ -5,7 +5,7 @@ to collect data from Azure, AzureAD(Entra), Intune and Defender products.
 
 ## Install walk through (click)
 
-[![Segway Install Walkthrough](segway.png)](https://app.screencast.com/dN58ifMCOXtKm/e "Segway Install Walkthrough")
+[![Segway Install Walkthrough](segway.png)](https://app.screencast.com/SupiEWJghimRX/e "Segway Install Walkthrough")
 
 ## Required Access
 
@@ -23,46 +23,73 @@ The default AzureShell contains all required tools except terragrunt install one
 * Install terragrunt
 
     ```bash
+    mkdir bin || true
     curl -L -o ./bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.48.7/terragrunt_linux_amd64; chmod +x bin/terragrunt
     ```
+
+## Create the resource group
+
+### using cli
+
+While an existing resource group can be used a shared group may be confusing to future administrator
+
+```bash
+# replace "segway-state" with a meaningful name conforming to org standards
+# --tags should be modified to conform to org standards or removed
+AZRG=<name of group>
+# Such as EastUS
+AZLOCATION=<Azure Location> 
+az group create --name $AZRG --location $AZLOCATION
+```
+
+### Existing or created by another process
+
+Using an exisitng group simply set the variable for later use
+
+```bash
+AZRG=<name of group>
+```
+
+## Create a storage account for tf state
+
+The storage account and container created below will be accessible via internet endpoints. Use a approved configuration appropriate for your environment as needed.
+
+1 Create a storage account note the name of this account must be unique among *ALL* Azure customers. The name selected must conform to Azure requirements. Most commonly all lower case and numeric with no spaces dashes or symbols.
+
+```bash
+AZSTATE=shortuniquename
+az storage account create --name $AZSTATE --resource-group $AZRG
+```
+
+2 Create a container in the storage account named "tfstate"
+
+```bash
+az storage container create --name tfstate --auth-mode login --account-name $AZSTATE --public-access off
+```
+
+## Create a cloud drive to persist working configuration across deployments
+
+The same command can be reused to remount in the future
+
+```bash
+clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway -d 31
+```
+
+## Clone Source
 
 * Clone the repository
 
     ```bash
-    git clone https://github.com/seg-way/hosting-azure-aks.git
+    git clone https://github.com/seg-way/hosting-azure-aks.git clouddrive/host-azure-aks
     ```
 
-## Setup State
-
-This activity is completed one time and will be used and reused via configuration
-
-* Launch the AzureShell using the link above
-* Create a Resource Group to contain the terraform state storage account
-
-    ```bash
-    # replace "segway-state" with a meaningful name conforming to org standards
-    # --tags should be modified to conform to org standards or removed
-    az group create --name segway-state --location centralus --tags this=that apple=fruit
-    ```
-
-* Create a storage account with versioning enabled
-
-    ```bash
-    az storage account create --name orgshortnamesegwaystate --resource-group "segway-state" --tags this=that apple=fruit
-    ```
-
-* Create a container in the storage account named "tfstate"
-
-    ```bash
-    az storage container create --name tfstate --auth-mode login --account-name orgshortnamesegwaystate --public-access off
-    ```
 
 ## Configure
 
 * `cd` to the directory
 
     ```bash
-    cd hosting-azure-aks/deployments
+    cd clouddrive/host-azure-aks/deployments
     ```
 
 * Rename `deployments/*.template.yaml` to remove `.template`

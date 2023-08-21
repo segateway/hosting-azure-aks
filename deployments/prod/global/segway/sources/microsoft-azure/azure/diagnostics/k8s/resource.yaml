@@ -1,0 +1,10 @@
+path: infra/k8s
+logs:
+  - cloud-controller-manager
+  - cluster-autoscaler
+  - guard
+  - kube-apiserver
+  - kube-audit
+  - kube-audit-admin
+  - kube-controller-manager
+  - kube-scheduler

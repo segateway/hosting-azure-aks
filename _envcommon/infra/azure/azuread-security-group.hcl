@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///seg-way/group/azuread?version=1.0.1"
+  source = "tfr:///segateway/group/azuread?version=1.0.2"
 }
 
 
@@ -29,7 +29,8 @@ generate "provider" {
   path      = "provider_azuread.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<-EOF
-provider "azuread" {  
+provider "azuread" {
+  
   tenant_id = "${local.azure.tenant_id}"
 }    
   EOF

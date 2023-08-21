@@ -1,16 +1,21 @@
 instance:
-  #logscale host fqdn
   host: 
   protocol: https
   port: 443
   insecure: "false"
-k8s:
-  #Ingest Token for k8s events
+  # Org token required logscale >1.101
+  token: 
+data:
   infraEvents: 
-  #Ingest Token for k8s host logs
+    repo: infra-kubernetes
+    sourcetype: kube-logging-events
   infraHosts: 
-  #Ingest Token for k8s infrastructure or system level pods
+    repo: infra-kubernetes
+    sourcetype: kube-logging-host
   infraPods: 
-  #Ingest Token for non system apps
+    repo: infra-kubernetes
+    sourcetype: kube-logging-pods-system  
   appPods: 
+    repo: infra-kubernetes
+    sourcetype: kube-logging-pods-system-apps
   

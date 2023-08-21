@@ -1,23 +1,31 @@
-location: EastUS
-#Subscription ID of azure subscription to create resources
+# Value of AZRG
+resourcegroup: segway-ps-prod
+# Value of AZSTATE manually created during the setup phase
+statestorageaccount: segwaylspsprodstate
+statecontainer: tfstate
+# Subscription ID of azure subscription to create resources
+# Change to this value after first apply is destructive and will require
+# Reconfiguration of all log sources in azure/m365/intune/defender
 subscription_id:
-#Subscription ID of AzureAD subscription for Access Group creation
+# Subscription ID of AzureAD subscription for Access Group creation
+# Change to this value after first apply is destructive and will require
+# Reconfiguration of all log sources in azure/m365/intune/defender
 tenant_id:
-backend:
-  #Manually created resource group and storage accounts for tf state
-  resourcegroup: 
-  storageaccount: 
-  container: tfstate
 tags:
   #Any number of kv pairs as required by local policy
   Environment: production
   Project: segway
-#Name of resource group for segway resources lower case no spaces
-resourcegroup: segway-prod
 #Short lowercase string for vault
 vaultPrefix: segwayprd
+public_network_access_enabled: true
+firewall_bypass_current_ip: true
 #Short lowercase string for storage account generation
-shortname: segwayprd
+# Change to this value after first apply is destructive and will require
+# Reconfiguration of all log sources in azure/m365/intune/defender
+clusterstorage: segwayprd
+network:
+  network: "10.0.0.0/22"
+admingroups: []
 aks:
   agents:
     #low cost "Ampre" Powered VM can be intel if desired 8 GB memory instances
@@ -29,6 +37,8 @@ aks:
     max: 6
 eventhubnamespace:
   settings:
+    # Change to this value after first apply is destructive and will require
+    # Reconfiguration of all log sources in azure/m365/intune/defender
     sku: Standard
     auto_inflate_enabled: true
     #note this has cost implication setting too low can cause data
