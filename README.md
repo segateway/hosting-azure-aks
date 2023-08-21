@@ -17,15 +17,7 @@ to collect data from Azure, AzureAD(Entra), Intune and Defender products.
 
 ## Setup Deployment Environment
 
-The default AzureShell contains all required tools except terragrunt install one time using the following procedure
-
 * Launch [![Launch Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/media/embed-cloud-shell/launch-cloud-shell-1.png)](https://shell.azure.com/bash)
-* Install terragrunt
-
-    ```bash
-    mkdir bin || true
-    curl -L -o ./bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.48.7/terragrunt_linux_amd64; chmod +x bin/terragrunt
-    ```
 
 ## Create the resource group
 
@@ -74,6 +66,16 @@ The same command can be reused to remount in the future
 ```bash
 clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway -d 31
 ```
+
+## Install Terragrunt
+
+The default AzureShell contains all required tools except terragrunt install one time using the following procedure
+* Install terragrunt
+
+    ```bash
+    mkdir bin || true
+    curl -L -o ./bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.48.7/terragrunt_linux_amd64; chmod +x bin/terragrunt
+    ```
 
 ## Clone Source
 

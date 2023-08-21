@@ -40,7 +40,7 @@ config:
         tags: 
           - name: vendor
             value: microsoft
-        repo: segway-iaas-microsoft-azure
+        repo: iaas-microsoft-azure
         sourcetype: azure
       - name: azuread
         filters:
@@ -51,7 +51,7 @@ config:
           - name: vendor
             value: microsoft
         sourcetype: azuread
-        repo: segway-saas-microsoft-azuread
+        repo: saas-microsoft-azuread
       - name: defender
         filters:
           - filter(f_defender)
@@ -61,7 +61,7 @@ config:
           - name: vendor
             value: microsoft
         sourcetype: defender
-        repo: segway-saas-microsoft-azuread
+        repo: saas-microsoft-defender
       - name: intune
         filters:
           - filter(f_azuread)
