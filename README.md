@@ -73,6 +73,14 @@ az storage account create --name $AZSTATE --resource-group $AZRG
 az storage container create --name tfstate --auth-mode login --account-name $AZSTATE --public-access off
 ```
 
+## Create a cloud drive to persist working configuration across deployments
+
+The same command can be reused to remount in the future
+
+```bash
+clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway
+```
+
 ## Configure
 
 * `cd` to the directory
