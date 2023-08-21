@@ -5,7 +5,7 @@ to collect data from Azure, AzureAD(Entra), Intune and Defender products.
 
 ## Install walk through (click)
 
-[![Segway Install Walkthrough](segway.png)](https://app.screencast.com/dN58ifMCOXtKm/e "Segway Install Walkthrough")
+[![Segway Install Walkthrough](segway.png)](https://app.screencast.com/SupiEWJghimRX/e "Segway Install Walkthrough")
 
 ## Required Access
 
@@ -72,7 +72,7 @@ az storage container create --name tfstate --auth-mode login --account-name $AZS
 The same command can be reused to remount in the future
 
 ```bash
-clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway
+clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway -d 31
 ```
 
 ## Clone Source
@@ -80,7 +80,7 @@ clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway
 * Clone the repository
 
     ```bash
-    git clone https://github.com/seg-way/hosting-azure-aks.git clouddrive
+    git clone https://github.com/seg-way/hosting-azure-aks.git clouddrive/host-azure-aks
     ```
 
 
@@ -89,7 +89,7 @@ clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway
 * `cd` to the directory
 
     ```bash
-    cd hosting-azure-aks/deployments
+    cd clouddrive/host-azure-aks/deployments
     ```
 
 * Rename `deployments/*.template.yaml` to remove `.template`

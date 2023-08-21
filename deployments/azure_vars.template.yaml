@@ -17,10 +17,12 @@ tags:
   Project: segway
 #Short lowercase string for vault
 vaultPrefix: segwayprd
+public_network_access_enabled: true
+firewall_bypass_current_ip: true
 #Short lowercase string for storage account generation
 # Change to this value after first apply is destructive and will require
 # Reconfiguration of all log sources in azure/m365/intune/defender
-shortname: segwayprd
+clusterstorage: segwayprd
 network:
   network: "10.0.0.0/22"
 admingroups: []
