@@ -24,12 +24,22 @@ firewall_bypass_current_ip: true
 # Reconfiguration of all log sources in azure/m365/intune/defender
 clusterstorage: segwayprd
 network:
+  # 10.0.0.1 - 10.0.3.254
   network: "10.0.0.0/22"
+  subnets:
+    #10.0.0.1 - 10.0.0.126
+    endpoint: "10.0.0.0/25"
+    #10.0.0.129 - 10.0.0.254
+    agw: "10.0.0.128/25"
+    # 10.0.2.1 - 10.0.3.254
+    k8s: "10.0.2.0/23"
+    service: "10.0.4.0/24"
+  dns_service: "10.0.4.10"
 admingroups: []
 aks:
   agents:
     #low cost "Ampre" Powered VM can be intel if desired 8 GB memory instances
-    # are required 
+    # are required
     # arm
     # size: Standard_D2pds_v5
     # amd
