@@ -27,12 +27,6 @@ The default AzureShell contains all required tools except terragrunt install one
     curl -L -o ./bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.48.7/terragrunt_linux_amd64; chmod +x bin/terragrunt
     ```
 
-* Clone the repository
-
-    ```bash
-    git clone https://github.com/seg-way/hosting-azure-aks.git
-    ```
-
 ## Create the resource group
 
 ### using cli
@@ -80,6 +74,15 @@ The same command can be reused to remount in the future
 ```bash
 clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway
 ```
+
+## Clone Source
+
+* Clone the repository
+
+    ```bash
+    git clone https://github.com/seg-way/hosting-azure-aks.git clouddrive
+    ```
+
 
 ## Configure
 
