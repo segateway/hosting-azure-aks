@@ -35,6 +35,7 @@ provider "azurerm" {
   features {}
   environment = "${local.azure.environment}"
   subscription_id = "${local.azure.subscription_id}"
+  skip_provider_registration = true
 }    
   EOF
 }
