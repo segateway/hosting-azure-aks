@@ -19,6 +19,16 @@ to collect data from Azure, AzureAD(Entra), Intune and Defender products.
 
 * Launch [![Launch Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/media/embed-cloud-shell/launch-cloud-shell-1.png)](https://shell.azure.com/bash)
 
+## Register Required Providers
+
+Restricted accounts may disable required providers by default use the following commands to enable required providers
+
+```bash
+az provider register --namespace 'Microsoft.Container' --wait
+az provider register --namespace 'Microsoft.ContainerInstance' --wait
+az provider register --namespace 'Microsoft.Eventhub' --wait
+```
+
 ## Create the resource group
 
 ### using cli
