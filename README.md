@@ -27,6 +27,7 @@ Restricted accounts may disable required providers by default use the following 
 az provider register --namespace 'Microsoft.Container' --wait
 az provider register --namespace 'Microsoft.ContainerInstance' --wait
 az provider register --namespace 'Microsoft.Eventhub' --wait
+az provider register --namespace 'Microsoft.Insights' --wait
 ```
 
 ## Create the resource group
@@ -74,12 +75,13 @@ az storage container create --name tfstate --auth-mode login --account-name $AZS
 The same command can be reused to remount in the future
 
 ```bash
-clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway -d 31
+clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway -d 100
 ```
 
 ## Install Terragrunt
 
 The default AzureShell contains all required tools except terragrunt install one time using the following procedure
+
 * Install terragrunt
 
     ```bash
@@ -94,7 +96,6 @@ The default AzureShell contains all required tools except terragrunt install one
     ```bash
     git clone https://github.com/seg-way/hosting-azure-aks.git clouddrive/host-azure-aks
     ```
-
 
 ## Configure
 
@@ -129,8 +130,6 @@ The default AzureShell contains all required tools except terragrunt install one
 * Configure defender and intune to the respective defender and intune hubs
 
 [![Segway Configure logging](segway.png)](https://app.screencast.com/kNzItkQAhNDVp/e "Microsoft Cloud Logging Configuration Walkthrough")
-
-
 
 ## Upgrades
 

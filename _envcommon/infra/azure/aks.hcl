@@ -21,7 +21,7 @@ locals {
   azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
 
 }
-generate "provider" {
+generate "provider_ad" {
   path      = "provider_azuread.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<-EOF
