@@ -18,7 +18,7 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    environment  = local.azure.environment
+    environment  = local.azure.environment.short
     resource_group_name  = local.azure.resourcegroup
     storage_account_name = local.azure.statestorageaccount
     container_name       = local.azure.statecontainer
@@ -33,7 +33,7 @@ generate "provider" {
   contents  = <<-EOF
 provider "azurerm" {
   features {}
-  environment = "${local.azure.environment}"
+  environment = "${local.azure.environment.short}"
   subscription_id = "${local.azure.subscription_id}"
   skip_provider_registration = true
 }    

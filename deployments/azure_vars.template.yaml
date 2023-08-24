@@ -1,7 +1,9 @@
 # Value of AZRG
 resourcegroup: segway-ps-prod
 #environement Possible values are public, china, german, stack and usgovernment. Defaults to public.
-environment: public
+environment:
+  short: public
+  long: AzurePublicCloud
 # Value of AZSTATE manually created during the setup phase
 statestorageaccount: segwaylspsprodstate
 statecontainer: tfstate

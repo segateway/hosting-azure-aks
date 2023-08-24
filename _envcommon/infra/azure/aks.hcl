@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///segateway/akscluster/azurerm?version=2.1.1"
+  source = "tfr:///segateway/akscluster/azurerm?version=2.2.0"
 }
 
 
@@ -26,7 +26,7 @@ generate "provider_ad" {
   if_exists = "overwrite_terragrunt"
   contents  = <<-EOF
 provider "azuread" {
-  environment = "${local.azure.environment}"
+  environment = "${local.azure.environment.short}"
   tenant_id = "${local.azure.tenant_id}"
 }    
   EOF
@@ -68,7 +68,7 @@ inputs = {
   agent_max  = local.azure.aks.agents.max
 
   admins_group_ids = concat([dependency.adminGroup.outputs.id],local.azure.admingroups)
-
+  environment = local.azure.environment.long
   workload_identity_enabled           = true
   ingress_application_gateway_enabled = false
 
