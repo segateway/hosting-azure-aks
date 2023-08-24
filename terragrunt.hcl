@@ -33,7 +33,7 @@ generate "provider" {
   contents  = <<-EOF
 provider "azurerm" {
   features {}
-
+  environment = ${local.azure.environment}
   subscription_id = "${local.azure.subscription_id}"
 }    
   EOF
