@@ -65,8 +65,8 @@ inputs = {
   repository = "https://segateway.github.io/charts"
 
   release          = "eh-${local.hub.name}"
-  chart            = "segateway-sys-source-ms-azure-eventhub"
-  chart_version    = "v2.1.2"
+  chart            = "segateway-source-azure-eventhub"
+  chart_version    = "v3.0.2"
   namespace        = "segateway"
   create_namespace = true
   project          = "segateway"

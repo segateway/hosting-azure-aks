@@ -58,8 +58,8 @@ inputs = {
   repository = "https://segateway.github.io/charts"
 
   release          = "ls-cloud"
-  chart            = "segateway-sys-dest-logscale"
-  chart_version    = "v3.0.0"
+  chart            = "segateway-destination-logscale"
+  chart_version    = "v4.0.1"
   namespace        = "segateway"
   create_namespace = true
   project          = "segateway"

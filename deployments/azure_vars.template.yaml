@@ -19,7 +19,7 @@ tags:
 vaultPrefix: segwayprd
 public_network_access_enabled: true
 firewall_bypass_current_ip: true
-#Short lowercase string for storage account generation
+# Short lowercase string for storage account generation
 # Change to this value after first apply is destructive and will require
 # Reconfiguration of all log sources in azure/m365/intune/defender
 clusterstorage: segwayprd
