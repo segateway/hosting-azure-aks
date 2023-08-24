@@ -71,7 +71,7 @@ config:
           - name: vendor
             value: microsoft
         sourcetype: intune
-        repo: segway-saas-microsoft-intune
+        repo: saas-microsoft-intune
       - name: fallback
         template: t_logscale_parsed
         sourcetype: segway-unknown
