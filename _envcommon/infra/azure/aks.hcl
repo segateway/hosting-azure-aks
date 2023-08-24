@@ -21,7 +21,16 @@ locals {
   azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
 
 }
-
+generate "provider" {
+  path      = "provider_azuread.tf"
+  if_exists = "overwrite_terragrunt"
+  contents  = <<-EOF
+provider "azuread" {
+  environment = "${local.azure.environment}"
+  tenant_id = "${local.azure.tenant_id}"
+}    
+  EOF
+}
 
 dependency "rg" {
   config_path = "${get_terragrunt_dir()}/../resourcegroup/"
