@@ -30,7 +30,7 @@ generate "provider" {
   if_exists = "overwrite_terragrunt"
   contents  = <<-EOF
 provider "azuread" {
-  environment = ${local.azure.environment}
+  environment = "${local.azure.environment}"
   tenant_id = "${local.azure.tenant_id}"
 }    
   EOF
