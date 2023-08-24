@@ -29,6 +29,10 @@ provider "azuread" {
   environment = "${local.azure.environment.short}"
   tenant_id = "${local.azure.tenant_id}"
 }    
+provider "azapi" {
+  environment = "${local.azure.environment.short}"
+  subscription_id = "${local.azure.subscription_id}"
+}
   EOF
 }
 
