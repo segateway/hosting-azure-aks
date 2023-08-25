@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///segateway/dns-zone-private/azurerm?version=1.2.1"
+  source = "tfr:///segateway/dns-zone-private/azurerm?version=2.0.0"
 }
 
 
@@ -22,6 +22,28 @@ locals {
   azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
   dns   = yamldecode(file("${path_relative_to_include()}/dns.yaml"))
 
+  dnsmap = yamldecode(<<YAML
+  public:
+    azclient.ms: azclient.ms
+    azure.com: azure.com
+    cloudapp.net: cloudapp.net
+    core.windows.net: core.windows.net
+    msidentity.com: msidentity.com
+    trafficmanager.net: trafficmanager.net
+    windows.net: windows.net
+  usgovernment:
+    azclient.ms: azclient.us
+    azure.com: azure.us
+    cloudapp.net: usgovcloudapp.net
+    core.windows.net: core.usgovcloudapi.net
+    msidentity.com: msidentity.us
+    trafficmanager.net: usgovtrafficmanager.net
+    windows.net: usgovcloudapi.net
+YAML
+)
+
+  environment = lookup(local.dnsmap,local.azure.environment.short,{})
+  domain = lookup(local.environment,local.dns.suffix,"")
 }
 
 
@@ -39,5 +61,6 @@ dependency "net" {
 inputs = {
   resource_group_name = dependency.rg.outputs.resource_group_name
   name                = local.dns.name
+  domain              = local.domain
   virtual_network_id  = dependency.net.outputs.virtual_network_id
 }

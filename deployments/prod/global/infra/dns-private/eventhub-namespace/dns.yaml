@@ -1,1 +1,2 @@
-name: privatelink.servicebus.windows.net
+name: privatelink.servicebus
+suffix: windows.net

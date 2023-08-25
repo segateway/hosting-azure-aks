@@ -1,1 +1,2 @@
-name: privatelink.blob.core.windows.net
+name: privatelink.blob
+suffix: core.windows.net
