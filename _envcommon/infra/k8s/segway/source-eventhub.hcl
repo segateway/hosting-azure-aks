@@ -89,7 +89,7 @@ podAnnotations:
   reloader.stakater.com/auto: "true"
 
 nexthop:
-    name: ls-cloud-segway-sys-dest-logscale
+    name: ls-cloud-segateway-destination-logscale
 config:
   data:
     vendor: microsoft
