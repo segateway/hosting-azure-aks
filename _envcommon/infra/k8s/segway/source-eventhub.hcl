@@ -31,10 +31,12 @@ dependency "storage" {
 dependency "ehns" {
   config_path = "${get_terragrunt_dir()}/../../../../../infra/eventhub-namespace/namespace/"
 }
+dependency "consumergroup" {
+  config_path = "${get_terragrunt_dir()}/../consumergroup"
+}
 dependencies {
   paths = [
     "${get_terragrunt_dir()}/../../../../../infra/k8s-system/argocd/projects/segway",
-    "${get_terragrunt_dir()}/../consumergroup",
   ]
 }
 generate "provider" {
@@ -66,7 +68,7 @@ inputs = {
 
   release          = "eh-${local.hub.name}"
   chart            = "segateway-source-azure-eventhub"
-  chart_version    = "v3.0.1"
+  chart_version    = "v3.0.2"
   namespace        = "segateway"
   create_namespace = true
   project          = "segateway"
@@ -83,8 +85,8 @@ resources:
 autoscaling: 
   enabled: false
   keda: true
-  maxReplicas: 3
-  unprocessedEventThreshold: 5
+  maxReplicas: 2
+  unprocessedEventThreshold: 100
 podAnnotations:
   reloader.stakater.com/auto: "true"
 
@@ -100,11 +102,9 @@ secret:
   data:
     AZURE_STORAGE_CONN_STR: "${dependency.storage.outputs.storage_primary_connection_string}"
     AZURE_STORAGE_CONTAINER: "${local.hub.name}"
-    AZURE_STORAGE_CUSTOM_ENDPOINT: storage-cluster-blob.privatelink.blob.core.windows.net
-    EVENT_HUB_CONN_STR: "${dependency.ehns.outputs.default_primary_connection_string};EntityPath=${local.hub.name}"
-    EVENT_HUB_CONSUMER_GROUP: "segway"
+    EVENT_HUB_CONN_STR: "${dependency.consumergroup.outputs.connection_string}"
+    EVENT_HUB_CONSUMER_GROUP: "${dependency.consumergroup.outputs.name}"
     # EVENT_HUB_TRANSPORT_TYPE: "AmqpOverWebsocket"  
-    # EVENT_HUB_CUSTOM_ENDPOINT: sb://eventhubnamespace.privatelink.servicebus.windows.net
 YAML
   )
 
