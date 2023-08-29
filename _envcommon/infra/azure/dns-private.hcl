@@ -40,10 +40,10 @@ locals {
     trafficmanager.net: usgovtrafficmanager.net
     windows.net: usgovcloudapi.net
 YAML
-)
+  )
 
-  environment = lookup(local.dnsmap,local.azure.environment.short,{})
-  domain = lookup(local.environment,local.dns.suffix,"")
+  environment = lookup(local.dnsmap, local.azure.environment.short, {})
+  domain      = lookup(local.environment, local.dns.suffix, "")
 }
 
 
