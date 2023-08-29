@@ -21,7 +21,7 @@ terraform {
 locals {
 
   azure    = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
-  hub      = yamldecode(file(find_in_parent_folders("hub.yaml")))
+  hub = basename(abspath("${get_terragrunt_dir()}/.."))
   resource = yamldecode(file("${path_relative_to_include()}/resource.yaml"))
 }
 
@@ -50,7 +50,7 @@ inputs = {
   name                = dependency.rg.outputs.resource_group_name
 
   eventhub_namespace_name = dependency.ehns.outputs.name
-  eventhub_name           = local.hub.name
+  eventhub_name           = local.hub
 
   target_ids = [
     dependency.created.outputs.id

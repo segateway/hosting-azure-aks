@@ -17,9 +17,7 @@ terraform {
 # Locals are named constants that are reusable within the configuration.
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
-
-
-  hub = yamldecode(file(find_in_parent_folders("hub.yaml")))
+  hub = basename(abspath("${get_terragrunt_dir()}/.."))
 }
 
 dependency "k8s" {
@@ -61,12 +59,12 @@ EOF
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  name = "eh-${local.hub.name}"
+  name = "eh-${local.hub}"
 
 
   repository = "https://segateway.github.io/charts"
 
-  release          = "eh-${local.hub.name}"
+  release          = "eh-${local.hub}"
   chart            = "segateway-source-azure-eventhub"
   chart_version    = "v3.0.2"
   namespace        = "segateway"
@@ -95,13 +93,13 @@ nexthop:
 config:
   data:
     vendor: microsoft
-    product: ${local.hub.name}
-    appparser: microsoft-${local.hub.name}
+    product: ${local.hub}
+    appparser: microsoft-${local.hub}
   startingPosition: -1
 secret:
   data:
     AZURE_STORAGE_CONN_STR: "${dependency.storage.outputs.storage_primary_connection_string}"
-    AZURE_STORAGE_CONTAINER: "${local.hub.name}"
+    AZURE_STORAGE_CONTAINER: "${local.hub}"
     EVENT_HUB_CONN_STR: "${dependency.consumergroup.outputs.connection_string}"
     EVENT_HUB_CONSUMER_GROUP: "${dependency.consumergroup.outputs.name}"
     # EVENT_HUB_TRANSPORT_TYPE: "AmqpOverWebsocket"  

@@ -20,9 +20,8 @@ terraform {
 locals {
 
   azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
-  hub   = yamldecode(file(find_in_parent_folders("hub.yaml")))
+  hub = basename(abspath("${get_terragrunt_dir()}/.."))
 }
-
 
 dependency "rg" {
   config_path = "${get_terragrunt_dir()}/../../../../../infra/resourcegroup/"
@@ -38,7 +37,7 @@ dependency "sa" {
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
   resource_group_name   = dependency.rg.outputs.resource_group_name
-  name                  = local.hub.name
+  name                  = local.hub
   storage_account_name  = dependency.sa.outputs.storage_account_name
   container_access_type = "private"
 }

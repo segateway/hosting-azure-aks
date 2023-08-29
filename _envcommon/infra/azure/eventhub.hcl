@@ -19,8 +19,7 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
 
-  hub = yamldecode(file(find_in_parent_folders("hub.yaml")))
-
+  hub = basename(abspath("${get_terragrunt_dir()}/.."))
 }
 
 
@@ -39,7 +38,7 @@ inputs = {
   rg_name  = dependency.rg_collectors.outputs.resource_group_name
   location = dependency.rg_collectors.outputs.resource_group_location
 
-  event_hub_name = local.hub.name
+  event_hub_name = local.hub
   namespace_name = dependency.ehns.outputs.name
 
   settings = {
