@@ -4,20 +4,28 @@ resources:
   requests:
     cpu: 200m
     memory: 192Mi
-autoscaling: 
+autoscaling:
   enabled: false
-  keda: true   
+  keda: true
 podAnnotations:
   reloader.stakater.com/auto: "true"
 secret:
-  host: 
+  host:
   #must be org or system token requires 1.98>
-  token: 
+  token:
 config:
+  # Uncomment and complete
+  # mkdir deployments/prod/global/segway/sources/mimecast || true
+  # either use * for all types or review the types and copy desired options
+  # cp -r /Users/rfaircloth/Documents/GitHub/hosting-azure-aks/_modules/global/segway/mimecast/<pick type> deployments/prod/global/segway/sources/mimecast/
+  # mimecast:
+  #   client_id:
+  #   secret_id:
+  #   host:  api.services.mimecast.com
   syslogng:
-    # template assumes all destinations are in use remove 
+    # template assumes all destinations are in use remove
     # both filter and logpath references for unused features filters may remain
-    
+
     filters:
       - name: f_azure
         condition: |-
@@ -37,7 +45,7 @@ config:
           - filter(f_azure)
         flags: [catchall, final]
         template: t_logscale_parsed
-        tags: 
+        tags:
           - name: vendor
             value: microsoft
         repo: iaas-microsoft-azure
@@ -47,7 +55,7 @@ config:
           - filter(f_azuread)
         flags: [catchall, final]
         template: t_logscale_parsed
-        tags: 
+        tags:
           - name: vendor
             value: microsoft
         sourcetype: azuread
@@ -57,7 +65,7 @@ config:
           - filter(f_defender)
         flags: [catchall, final]
         template: t_logscale_parsed
-        tags: 
+        tags:
           - name: vendor
             value: microsoft
         sourcetype: defender
@@ -67,7 +75,7 @@ config:
           - filter(f_azuread)
         flags: [catchall, final]
         template: t_logscale_parsed
-        tags: 
+        tags:
           - name: vendor
             value: microsoft
         sourcetype: intune
