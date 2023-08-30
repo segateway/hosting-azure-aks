@@ -64,15 +64,15 @@ inputs = {
 
   subnet_id      = dependency.subnet_k8s.outputs.id
   subnet_id_ag   = dependency.subnet_agw.outputs.id
-  service_cidr   = lookup(local.azure.network.subnets,"service" ,"0.0.0.0")
+  service_cidr   = lookup(local.azure.network.subnets, "service", "0.0.0.0")
   dns_service_ip = local.azure.network.dns_service
   # arm Standard_D2plds_v5
   # intel Standard_A2_v2
   agent_size = local.azure.aks.agents.size
   agent_max  = local.azure.aks.agents.max
 
-  admins_group_ids = concat([dependency.adminGroup.outputs.id],local.azure.admingroups)
-  environment = local.azure.environment.long
+  admins_group_ids                    = concat([dependency.adminGroup.outputs.id], local.azure.admingroups)
+  environment                         = local.azure.environment.long
   workload_identity_enabled           = true
   ingress_application_gateway_enabled = false
 

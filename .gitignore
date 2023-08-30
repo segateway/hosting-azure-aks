@@ -40,3 +40,5 @@ deployments/*/segway_values.yaml
 deployments/segway_values.yaml
 deployments/logging_vars.yaml
 deployments/azure_vars.yaml
+!_modules
+deployments/prod/global/segway/sources/mimecast/

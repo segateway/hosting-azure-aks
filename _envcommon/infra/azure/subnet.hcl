@@ -38,9 +38,9 @@ inputs = {
   name           = local.vnet.name
   resource_group = dependency.rg.outputs.resource_group_name
 
-  virtual_network_name                          = dependency.net.outputs.virtual_network_name
-  subnet                                        = lookup(local.azure.network.subnets,local.vnet.name,"0.0.0.0")
-  
+  virtual_network_name = dependency.net.outputs.virtual_network_name
+  subnet               = lookup(local.azure.network.subnets, local.vnet.name, "0.0.0.0")
+
   private_endpoint_network_policies_enabled     = local.vnet.private_endpoint_network_policies_enabled
   private_link_service_network_policies_enabled = local.vnet.private_link_service_network_policies_enabled
   service_endpoints                             = local.vnet.service_endpoints

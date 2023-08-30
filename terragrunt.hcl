@@ -18,7 +18,7 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    environment  = local.azure.environment.short
+    environment          = local.azure.environment.short
     resource_group_name  = local.azure.resourcegroup
     storage_account_name = local.azure.statestorageaccount
     container_name       = local.azure.statecontainer
