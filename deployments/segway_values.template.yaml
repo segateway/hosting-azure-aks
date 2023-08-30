@@ -39,6 +39,9 @@ config:
       - name: f_intune
         condition: |-
           tags('vendor:microsoft') and tags('product:intune');
+      - name: f_mimecast_cloudgateway_siem
+        condition: |-
+          tags('vendor:mimecast') and tags('product:cloudgateway');
     logPaths:
       - name: azure
         filters:
@@ -80,6 +83,16 @@ config:
             value: microsoft
         sourcetype: intune
         repo: saas-microsoft-intune
+      # - name: mimecast_cloudgateway_siem
+      #   filters:
+      #     - filter(f_mimecast_cloudgateway_siem)
+      #   flags: [catchall, final]
+      #   template: t_logscale_parsed
+      #   tags: 
+      #     - name: vendor
+      #       value: mimecast
+      #   sourcetype: mimecast
+      #   repo: saas-mimecast-cloud-gateway        
       - name: fallback
         template: t_logscale_parsed
         sourcetype: segway-unknown
