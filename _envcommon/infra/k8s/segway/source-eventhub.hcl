@@ -84,7 +84,7 @@ autoscaling:
   enabled: false
   keda: true
   minReplicas: 1
-  maxReplicas: 20
+  maxReplicas: 32
   unprocessedEventThreshold: 64
 podAnnotations:
   reloader.stakater.com/auto: "true"
