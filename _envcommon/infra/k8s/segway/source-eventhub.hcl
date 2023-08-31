@@ -78,8 +78,8 @@ args:
   - -e
 resources:
   requests:
-    cpu: 100m
-    memory: 64Mi  
+    cpu: 50m
+    memory: 32Mi  
 autoscaling: 
   enabled: false
   keda: true
