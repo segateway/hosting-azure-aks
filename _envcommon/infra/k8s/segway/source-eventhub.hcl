@@ -78,12 +78,13 @@ args:
   - -e
 resources:
   requests:
-    cpu: 200m
-    memory: 128Mi  
+    cpu: 100m
+    memory: 64Mi  
 autoscaling: 
   enabled: false
   keda: true
-  maxReplicas: 6
+  minReplicas: 1
+  maxReplicas: 12
   unprocessedEventThreshold: 100
 podAnnotations:
   reloader.stakater.com/auto: "true"
