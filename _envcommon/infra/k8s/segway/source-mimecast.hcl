@@ -58,7 +58,7 @@ inputs = {
 
   release          = "${local.type}"
   chart            = "segateway-source-mimecast"
-  chart_version    = "v1.0.3"
+  chart_version    = "v1.0.4-next-major.4"
   namespace        = "segateway"
   create_namespace = true
   project          = "segateway"
