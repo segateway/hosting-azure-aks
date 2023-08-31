@@ -15,9 +15,9 @@ secret:
   token:
 config:
   # Uncomment and complete
-  # mkdir deployments/prod/global/segway/sources/mimecast || true
+  # mkdir deployments/prod/global/segway/sources/mimecast || true;cp -r _modules/global/segway/mimecast/* deployments/prod/global/segway/sources/mimecast/
   # either use * for all types or review the types and copy desired options
-  # cp -r /Users/rfaircloth/Documents/GitHub/hosting-azure-aks/_modules/global/segway/mimecast/<pick type> deployments/prod/global/segway/sources/mimecast/
+  # cp -r _modules/global/segway/mimecast/<pick type> deployments/prod/global/segway/sources/mimecast/
   # mimecast:
   #   client_id:
   #   secret_id:
