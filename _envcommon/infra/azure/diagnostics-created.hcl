@@ -21,7 +21,7 @@ terraform {
 locals {
 
   azure    = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
-  hub      = basename(abspath("${get_terragrunt_dir()}/.."))
+  hub      = basename(abspath("${get_terragrunt_dir()}/../.."))
   resource = yamldecode(file("${path_relative_to_include()}/resource.yaml"))
 }
 
