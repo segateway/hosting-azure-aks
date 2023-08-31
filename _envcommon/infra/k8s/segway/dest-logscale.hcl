@@ -59,7 +59,7 @@ inputs = {
 
   release          = "ls-cloud"
   chart            = "segateway-destination-logscale"
-  chart_version    = "v4.1.2"
+  chart_version    = "v4.1.3"
   namespace        = "segateway"
   create_namespace = true
   project          = "segateway"
