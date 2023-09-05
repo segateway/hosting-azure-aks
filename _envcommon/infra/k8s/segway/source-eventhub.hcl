@@ -66,7 +66,7 @@ inputs = {
 
   release          = "eh-${local.hub}"
   chart            = "segateway-source-azure-eventhub"
-  chart_version    = "v3.1.0-next-major.4"
+  chart_version    = "v4.0.0-next-major.15"
   namespace        = "segateway"
   create_namespace = true
   project          = "segateway"
@@ -75,7 +75,7 @@ inputs = {
 
   values = yamldecode(<<YAML
 args:
-  - -e
+  - -edt
 resources:
   requests:
     cpu: 50m
@@ -83,9 +83,10 @@ resources:
 autoscaling: 
   enabled: false
   keda: true
-  minReplicas: 1
+  # minReplicas: 1
   maxReplicas: 32
-  unprocessedEventThreshold: 64
+  unprocessedEventThreshold: 10000
+  activationUnprocessedEventThreshold: 0
 podAnnotations:
   reloader.stakater.com/auto: "true"
 
@@ -95,7 +96,7 @@ config:
   data:
     vendor: microsoft
     product: ${local.hub}
-    appparser: microsoft-${local.hub}
+    appparser: ${local.hub}
   startingPosition: -1
 secret:
   data:
