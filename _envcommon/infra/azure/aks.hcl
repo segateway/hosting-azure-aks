@@ -76,4 +76,5 @@ inputs = {
   workload_identity_enabled           = true
   ingress_application_gateway_enabled = false
 
+  api_server_authorized_ip_ranges= length(local.azure.mgmtips)>0 ? local.azure.mgmtips : [dependency.currentip.outputs.public_ip]
 }

@@ -20,7 +20,6 @@ terraform {
 locals {
 
   azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
-
 }
 
 dependency "currentip" {
@@ -47,7 +46,7 @@ inputs = {
   firewall_bypass_current_ip    = true
   network_rules = {
     bypass=[]
-    ip_rules = [dependency.currentip.outputs.public_ip]
+    ip_rules =  length(local.azure.mgmtips)>0 ? local.azure.mgmtips : [dependency.currentip.outputs.public_ip]
     subnet_ids = []
   }
   
