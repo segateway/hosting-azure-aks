@@ -18,6 +18,8 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
   hub = basename(abspath("${get_terragrunt_dir()}/.."))
+
+  appparser = local.hub == "intune" ? "intune" : (startswith(local.hub,"azure") || local.hub == "defender" ? "azure" : local.hub)
 }
 
 dependency "k8s" {
@@ -66,7 +68,7 @@ inputs = {
 
   release          = "eh-${local.hub}"
   chart            = "segateway-source-azure-eventhub"
-  chart_version    = "v4.0.0-next-major.15"
+  chart_version    = "v4.0.0"
   namespace        = "segateway"
   create_namespace = true
   project          = "segateway"
@@ -75,18 +77,18 @@ inputs = {
 
   values = yamldecode(<<YAML
 args:
-  - -edt
+  - -e
 resources:
   requests:
     cpu: 50m
-    memory: 32Mi  
+    memory: 128Mi  
 autoscaling: 
   enabled: false
   keda: true
-  # minReplicas: 1
+  minReplicas: 0
   maxReplicas: 32
   unprocessedEventThreshold: 10000
-  activationUnprocessedEventThreshold: 0
+  activationUnprocessedEventThreshold: "0"
 podAnnotations:
   reloader.stakater.com/auto: "true"
 
@@ -96,7 +98,7 @@ config:
   data:
     vendor: microsoft
     product: ${local.hub}
-    appparser: ${local.hub}
+    appparser: ${local.appparser}
   startingPosition: -1
 secret:
   data:
