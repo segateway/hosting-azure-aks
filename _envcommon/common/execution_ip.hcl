@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///segateway/storage-account/azurerm?version=2.0.0"
+  source = "tfr:///lonegunmanb/public-ip/lonegunmanb?version=0.1.0"
 }
 
 
@@ -19,18 +19,7 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 locals {
 
-  azure = yamldecode(file(find_in_parent_folders("azure_vars.yaml")))
 }
-
-dependency "currentip" {
-  config_path = "${get_terragrunt_dir()}/../../../../currentip/"
-}
-dependency "rg_collectors" {
-  config_path = "${get_terragrunt_dir()}/../../resourcegroup/"
-}
-# dependency "net" {
-#   config_path = "${get_terragrunt_dir()}/../network/"
-# }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # MODULE PARAMETERS
@@ -38,16 +27,5 @@ dependency "rg_collectors" {
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  resource_group_name = dependency.rg_collectors.outputs.resource_group_name
-  location            = dependency.rg_collectors.outputs.resource_group_location
-  name                = local.azure.clusterstorage
 
-  public_network_access_enabled = local.azure.public_network_access_enabled
-  firewall_bypass_current_ip    = true
-  network_rules = {
-    bypass=[]
-    ip_rules =  length(local.azure.mgmtips)>0 ? local.azure.mgmtips : [dependency.currentip.outputs.public_ip]
-    subnet_ids = []
-  }
-  
 }
