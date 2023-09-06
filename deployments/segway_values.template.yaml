@@ -29,19 +29,19 @@ config:
     filters:
       - name: f_azure
         condition: |-
-          tags('vendor:microsoft') and tags('product:azure');
+          tags('vendor:microsoft') and tags('suite:azure');
       - name: f_azuread
         condition: |-
-          tags('vendor:microsoft') and tags('product:azuread');
+          tags('vendor:microsoft') and tags('suite:aad');
       - name: f_defender
         condition: |-
-          tags('vendor:microsoft') and tags('product:defender');
+          tags('vendor:microsoft') and tags('suite:defender');
       - name: f_intune
         condition: |-
-          tags('vendor:microsoft') and tags('product:intune');
+          tags('vendor:microsoft') and tags('suite:intune');
       - name: f_mimecast_cloudgateway_siem
         condition: |-
-          tags('vendor:mimecast') and tags('product:cloudgateway');
+          tags('vendor:mimecast') and tags('suite:cloudgateway');
     logPaths:
       - name: azure
         filters:
