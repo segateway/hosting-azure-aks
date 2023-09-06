@@ -1,3 +1,6 @@
+# Managment IP CIDR if not provided autodetect will be attempted
+mgmtips: []
+# Value of A
 # Value of AZRG
 resourcegroup: segway-ps-prod
 #environement Possible values are public, china, german, stack and usgovernment. Defaults to public.
