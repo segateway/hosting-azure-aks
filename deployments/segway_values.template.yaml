@@ -75,7 +75,7 @@ config:
         repo: saas-microsoft-defender
       - name: intune
         filters:
-          - filter(f_azuread)
+          - filter(f_intune)
         flags: [catchall, final]
         template: t_logscale_parsed
         tags:
