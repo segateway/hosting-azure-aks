@@ -52,7 +52,7 @@ config:
           - name: vendor
             value: microsoft
         repo: iaas-microsoft-azure
-        sourcetype: azure
+        sourcetype: microsoft-azure-event-hub
       - name: azuread
         filters:
           - filter(f_azuread)
