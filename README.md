@@ -24,7 +24,7 @@ to collect data from Azure, AzureAD(Entra), Intune and Defender products.
 Restricted accounts may disable required providers by default use the following commands to enable required providers
 
 ```bash
-az provider register --namespace 'Microsoft.Container' --wait
+az provider register --namespace 'Microsoft.ContainerService' --wait
 az provider register --namespace 'Microsoft.ContainerInstance' --wait
 az provider register --namespace 'Microsoft.Eventhub' --wait
 az provider register --namespace 'Microsoft.Insights' --wait
