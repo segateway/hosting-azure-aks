@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///segateway/akscluster/azurerm?version=2.2.6"
+  source = "tfr:///segateway/akscluster/azurerm?version=2.2.9"
 }
 
 
@@ -76,5 +76,6 @@ inputs = {
   workload_identity_enabled           = true
   ingress_application_gateway_enabled = false
 
-  api_server_authorized_ip_ranges= length(local.azure.mgmtips)>0 ? local.azure.mgmtips : [dependency.currentip.outputs.public_ip]
+  public_network_access_enabled = local.azure.public_network_access_enabled
+  api_server_authorized_ip_ranges= length(local.azure.mgmtips)>0 ? local.azure.mgmtips : ["${dependency.currentip.outputs.public_ip}/32"]
 }

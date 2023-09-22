@@ -50,6 +50,7 @@ inputs = {
       # For Azure, AzureAD, Intune and Defender sources this must be true without the sources
       # Can not deliver events. See https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings?tabs=portal#destination-limitations
       trusted_service_access_enabled = true
+      default_action = "Deny"
     }
   }
 }
