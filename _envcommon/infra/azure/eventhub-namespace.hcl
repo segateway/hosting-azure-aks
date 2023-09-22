@@ -39,7 +39,7 @@ inputs = {
   event_hub_namespace_name = dependency.rg.outputs.resource_group_name
   location                 = dependency.rg.outputs.resource_group_location
 
-  public_network_access_enabled = false
+  public_network_access_enabled = local.azure.public_network_access_enabled
   settings = {
     sku                      = local.azure.eventhubnamespace.settings.sku
     auto_inflate_enabled     = local.azure.eventhubnamespace.settings.auto_inflate_enabled
