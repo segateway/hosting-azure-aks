@@ -49,7 +49,7 @@ dependency "adminGroup" {
   config_path = "${get_terragrunt_dir()}/../k8s-admins/"
 }
 dependency "currentip" {
-  config_path = "${get_terragrunt_dir()}/../../../../currentip/"
+  config_path = "${get_terragrunt_dir()}/../../currentip/"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
