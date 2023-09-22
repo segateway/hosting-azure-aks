@@ -48,6 +48,10 @@ dependency "subnet_agw" {
 dependency "adminGroup" {
   config_path = "${get_terragrunt_dir()}/../k8s-admins/"
 }
+dependency "currentip" {
+  config_path = "${get_terragrunt_dir()}/../../../../currentip/"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # MODULE PARAMETERS
 # These are the variables we have to pass in to use the module. This defines the parameters that are common across all
