@@ -46,7 +46,7 @@ inputs = {
   network_rules = {
     default_action = local.azure.public_network_access_enabled ? "Allow" :"Deny"
     bypass=[]
-    ip_rules =  local.azure.public_network_access_enabled == false ? (length(local.azure.mgmtips)>0 ? local.azure.mgmtips : [dependency.currentip.outputs.public_ip]) null
+    ip_rules =  local.azure.public_network_access_enabled == false ? (length(local.azure.mgmtips)>0 ? local.azure.mgmtips : [dependency.currentip.outputs.public_ip]) : null
     subnet_ids = []
   }
   
