@@ -68,7 +68,7 @@ inputs = {
 
   release          = "eh-${local.hub}"
   chart            = "segateway-source-azure-eventhub"
-  chart_version    = "v4.0.0"
+  chart_version    = "v4.1.2"
   namespace        = "segateway"
   create_namespace = true
   project          = "segateway"
