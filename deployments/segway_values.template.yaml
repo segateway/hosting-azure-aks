@@ -52,7 +52,7 @@ config:
           - name: vendor
             value: microsoft
         repo: iaas-microsoft-azure
-        sourcetype: azure
+        sourcetype: microsoft-azure-event-hub
       - name: azuread
         filters:
           - filter(f_azuread)
@@ -61,7 +61,7 @@ config:
         tags:
           - name: vendor
             value: microsoft
-        sourcetype: azuread
+        sourcetype: saas-microsoft-azuread
         repo: saas-microsoft-azuread
       - name: defender
         filters:
@@ -71,7 +71,7 @@ config:
         tags:
           - name: vendor
             value: microsoft
-        sourcetype: defender
+        sourcetype: windows-defender-365
         repo: saas-microsoft-defender
       - name: intune
         filters:
@@ -81,7 +81,7 @@ config:
         tags:
           - name: vendor
             value: microsoft
-        sourcetype: intune
+        sourcetype: micosoft-intune
         repo: saas-microsoft-intune
       # - name: mimecast_cloudgateway_siem
       #   filters:
