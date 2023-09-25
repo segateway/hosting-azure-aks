@@ -10,7 +10,7 @@
 # needs to deploy a different module version, it should redefine this block with a different ref to override the
 # deployed version.
 terraform {
-  source = "tfr:///segateway/storage-account/azurerm?version=2.0.0"
+  source = "tfr:///segateway/storage-account/azurerm?version=2.0.9"
 }
 
 
@@ -43,10 +43,10 @@ inputs = {
   name                = local.azure.clusterstorage
 
   public_network_access_enabled = local.azure.public_network_access_enabled
-  firewall_bypass_current_ip    = true
   network_rules = {
+    default_action = local.azure.public_network_access_enabled ? "Allow" :"Deny"
     bypass=[]
-    ip_rules =  length(local.azure.mgmtips)>0 ? local.azure.mgmtips : [dependency.currentip.outputs.public_ip]
+    ip_rules =  local.azure.public_network_access_enabled == false ? (length(local.azure.mgmtips)>0 ? local.azure.mgmtips : [dependency.currentip.outputs.public_ip]) : null
     subnet_ids = []
   }
   

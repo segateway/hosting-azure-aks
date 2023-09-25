@@ -119,7 +119,8 @@ The default AzureShell contains all required tools except terragrunt install one
 * Deploy
 
     ```bash
-    terragrunt run-all apply --terragrunt-non-interactive
+    # the value 4 below limits threads and results in improved performance for cloudshell
+    terragrunt run-all apply --terragrunt-non-interactive --terragrunt-parallelism 4
     ```
 
 ## Post deployment

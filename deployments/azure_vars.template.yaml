@@ -64,3 +64,4 @@ eventhubnamespace:
     network_rulesets:
       default_action: Deny
       public_network_access_enabled: false
+      

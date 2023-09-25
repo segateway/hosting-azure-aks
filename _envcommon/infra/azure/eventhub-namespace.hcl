@@ -25,10 +25,9 @@ locals {
 dependency "rg" {
   config_path = "${get_terragrunt_dir()}/../../resourcegroup/"
 }
-# dependency "net" {
-#   config_path = "${get_terragrunt_dir()}/../../network/"
-# }
-
+dependency "currentip" {
+  config_path = "${get_terragrunt_dir()}/../../../../currentip/"
+}
 # ---------------------------------------------------------------------------------------------------------------------
 # MODULE PARAMETERS
 # These are the variables we have to pass in to use the module. This defines the parameters that are common across all
@@ -39,7 +38,7 @@ inputs = {
   event_hub_namespace_name = dependency.rg.outputs.resource_group_name
   location                 = dependency.rg.outputs.resource_group_location
 
-  public_network_access_enabled = false
+  public_network_access_enabled = local.azure.eventhubnamespace.settings.network_rulesets.public_network_access_enabled
   settings = {
     sku                      = local.azure.eventhubnamespace.settings.sku
     auto_inflate_enabled     = local.azure.eventhubnamespace.settings.auto_inflate_enabled
