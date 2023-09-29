@@ -62,6 +62,8 @@ config:
           - name: vendor
             value: microsoft
         sourcetype: saas-microsoft-azuread
+        # If using falcon Complete parser
+        # sourcetype: falconcomplete/microsoft-azure-activedirectory:azure-ad        
         repo: saas-microsoft-azuread
       - name: defender
         filters:
@@ -71,7 +73,10 @@ config:
         tags:
           - name: vendor
             value: microsoft
-        sourcetype: windows-defender-365
+        # If using market place package
+        sourcetype: microsoft/microsoft365:microsoft365
+        # If using falconcomplete parser
+        #sourcetype: falconcomplete/microsoft-365-defender:windows-defender-365
         repo: saas-microsoft-defender
       - name: intune
         filters:
@@ -81,7 +86,9 @@ config:
         tags:
           - name: vendor
             value: microsoft
-        sourcetype: micosoft-intune
+        sourcetype: intune
+        # If using falconcomplete parser
+        #sourcetype: falconcomplete/microsoft-intune:microsoft-intune
         repo: saas-microsoft-intune
       # - name: mimecast_cloudgateway_siem
       #   filters:
