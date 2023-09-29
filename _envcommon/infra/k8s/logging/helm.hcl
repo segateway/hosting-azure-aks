@@ -191,7 +191,7 @@ clusterFlows:
         - record_transformer:
             records:
             - cluster_name: "${dependency.k8s.outputs.name}"            
-            - index: ${local.logscale.data.appPods.repo}
+            - index: "app-logs-safe"
             - sourcetype: ${local.logscale.data.appPods.sourcetype}
       match:
       - exclude:
