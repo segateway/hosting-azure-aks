@@ -49,7 +49,7 @@ config:
         flags: [catchall, final]
         template: t_logscale_parsed
         tags:
-          - name: vendor
+          - name: Vendor
             value: microsoft
         repo: iaas-microsoft-azure
         sourcetype: microsoft-azure-event-hub
@@ -61,7 +61,7 @@ config:
         flags: [catchall, final]
         template: t_logscale_parsed
         tags:
-          - name: vendor
+          - name: Vendor
             value: microsoft
         sourcetype: saas-microsoft-azuread
         # If using falcon Complete parser
@@ -73,7 +73,7 @@ config:
         flags: [catchall, final]
         template: t_logscale_parsed
         tags:
-          - name: vendor
+          - name: Vendor
             value: microsoft
         # If using market place package
         sourcetype: microsoft/microsoft365:microsoft365
@@ -86,7 +86,7 @@ config:
         flags: [catchall, final]
         template: t_logscale_parsed
         tags:
-          - name: vendor
+          - name: Vendor
             value: microsoft
         sourcetype: intune
         # If using falconcomplete parser
@@ -98,7 +98,7 @@ config:
       #   flags: [catchall, final]
       #   template: t_logscale_parsed
       #   tags:
-      #     - name: vendor
+      #     - name: Vendor
       #       value: mimecast
       #   sourcetype: mimecast
       #   repo: saas-mimecast-cloud-gateway
