@@ -66,6 +66,8 @@ inputs = {
 
 
   values = yamldecode(<<YAML
+image:
+    repository: ghcr.io/segateway/containers/segway-connect-system-source-box-enterprise
 resources:
   requests:
     cpu: 50m
