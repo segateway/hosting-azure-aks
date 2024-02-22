@@ -51,7 +51,7 @@ EOF
 # environments.
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = {
-  name = "eh-${local.hub}"
+  name = "box"
 
 
   repository = "https://segateway.github.io/charts"
