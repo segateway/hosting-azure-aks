@@ -39,6 +39,9 @@ config:
       - name: f_intune
         condition: |-
           tags('vendor:microsoft') and tags('suite:intune');
+      - name: f_box
+        condition: |-
+          tags('vendor:box') and tags('suite:enterprise');
       - name: f_mimecast_cloudgateway_siem
         condition: |-
           tags('vendor:mimecast') and tags('suite:cloudgateway');
@@ -102,6 +105,17 @@ config:
       #       value: mimecast
       #   sourcetype: mimecast
       #   repo: saas-mimecast-cloud-gateway
+      # - name: box
+      #   filters:
+      #     - filter(f_box)
+      #   flags: [catchall, final]
+      #   template: t_logscale_parsed
+      #   tags:
+      #     - name: Vendor
+      #       value: box
+      #   # If using market place package
+      #   sourcetype: box/box:boxenterprise
+      #   repo: saas-box
       - name: fallback
         template: t_logscale_parsed
         sourcetype: segway-unknown
