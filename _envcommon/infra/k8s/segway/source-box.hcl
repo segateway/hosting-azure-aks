@@ -26,7 +26,7 @@ dependency "k8s" {
 
 dependencies {
   paths = [
-    "${get_terragrunt_dir()}/../../../../infra/k8s-system/argocd/projects/segway",
+    "${get_terragrunt_dir()}/../../../infra/k8s-system/argocd/projects/segway",
   ]
 }
 generate "provider" {
