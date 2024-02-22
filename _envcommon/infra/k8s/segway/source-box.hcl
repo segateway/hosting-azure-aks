@@ -21,7 +21,7 @@ locals {
 }
 
 dependency "k8s" {
-  config_path = "${get_terragrunt_dir()}/../../../../infra/k8s/"
+  config_path = "${get_terragrunt_dir()}/../../../infra/k8s/"
 }
 
 dependencies {
