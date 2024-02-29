@@ -24,6 +24,8 @@ to collect data from Azure, AzureAD(Entra), Intune and Defender products.
 Restricted accounts may disable required providers by default use the following commands to enable required providers
 
 ```bash
+az provider register --namespace 'Microsoft.ManagedIdentity' --wait
+az provider register --namespace 'Microsoft.Network' --wait
 az provider register --namespace 'Microsoft.ContainerService' --wait
 az provider register --namespace 'Microsoft.ContainerInstance' --wait
 az provider register --namespace 'Microsoft.Eventhub' --wait
@@ -70,13 +72,19 @@ az storage account create --name $AZSTATE --resource-group $AZRG
 az storage container create --name tfstate --auth-mode login --account-name $AZSTATE --public-access off
 ```
 
-## Create a cloud drive to persist working configuration across deployments
-
-The same command can be reused to remount in the future
+## Create a File Share to persist working configuration across deployments
 
 ```bash
-clouddrive mount -s <subscriptionid> -g $AZRG -n $AZSTATE -f segateway -d 100
+az storage share-rm create -g $AZRG --storage-account $AZSTATE -n segateway -q 100 --enabled-protocols SMB
 ```
+
+Unmount from the the current CloudShell session:
+
+```bash
+clouddrive unmount
+```
+
+Reconnect and attach to File Share created above
 
 ## Install Terragrunt
 
